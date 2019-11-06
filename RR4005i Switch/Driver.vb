@@ -179,11 +179,11 @@ Public Class Switch
             If value Then
                 connectedState = True
                 TL.LogMessage("Connected Set", "Connecting to port " + comPort)
-                ' TODO connect to the device by checking status.xml
+                ' TODO connect to the device by checking status.xml with XMLReader
             Else
                 connectedState = False
                 TL.LogMessage("Connected Set", "Disconnecting from port " + comPort)
-                ' TODO disconnect from the device by checking status.xml
+                ' TODO disconnect from the device by checking status.xml with XMLReader
             End If
         End Set
     End Property
