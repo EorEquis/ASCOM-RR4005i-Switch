@@ -69,6 +69,8 @@ Public Class Switch
     Friend Shared traceStateDefault As String = "False"
     Friend Shared IPProfileName As String = "IP Address"
     Friend Shared IPDefault As String = "0.0.0.0"
+    Friend Shared portNamesProfileName As String = "Port Name"
+    Friend Shared portNameDefault() As String = {"Port 1", "Port 2", "Port 3", "Port 4", "Port 5"}
 
     Friend Shared comPort As String ' Variables to hold the currrent device configuration
     Friend Shared traceState As Boolean
@@ -512,6 +514,9 @@ Public Class Switch
             traceState = Convert.ToBoolean(driverProfile.GetValue(driverID, traceStateProfileName, String.Empty, traceStateDefault))
             comPort = driverProfile.GetValue(driverID, comPortProfileName, String.Empty, comPortDefault)
             RRIP = driverProfile.GetValue(driverID, IPProfileName, String.Empty, IPDefault)
+            For i As Integer = 0 To 4
+                PortNames(i) = driverProfile.GetValue(driverID, portNamesProfileName, i, portNameDefault(i))
+            Next
         End Using
     End Sub
 
@@ -524,6 +529,9 @@ Public Class Switch
             driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString())
             driverProfile.WriteValue(driverID, comPortProfileName, comPort.ToString())
             driverProfile.WriteValue(driverID, IPProfileName, RRIP)
+            For i As Integer = 0 To 4
+                driverProfile.WriteValue(driverID, portNamesProfileName, PortNames(i), i.ToString)
+            Next
         End Using
 
     End Sub

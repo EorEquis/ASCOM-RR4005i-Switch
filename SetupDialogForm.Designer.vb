@@ -31,15 +31,15 @@ Partial Class SetupDialogForm
         Me.txtIP = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtPortName1 = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtPortName2 = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.txtPortName3 = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.txtPortName4 = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.txtPortName0 = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -65,7 +65,7 @@ Partial Class SetupDialogForm
         Me.OK_Button.Location = New System.Drawing.Point(3, 3)
         Me.OK_Button.Name = "OK_Button"
         Me.OK_Button.Size = New System.Drawing.Size(67, 23)
-        Me.OK_Button.TabIndex = 0
+        Me.OK_Button.TabIndex = 70
         Me.OK_Button.Text = "OK"
         '
         'Cancel_Button
@@ -75,7 +75,7 @@ Partial Class SetupDialogForm
         Me.Cancel_Button.Location = New System.Drawing.Point(76, 3)
         Me.Cancel_Button.Name = "Cancel_Button"
         Me.Cancel_Button.Size = New System.Drawing.Size(67, 23)
-        Me.Cancel_Button.TabIndex = 1
+        Me.Cancel_Button.TabIndex = 80
         Me.Cancel_Button.Text = "Cancel"
         '
         'Label1
@@ -105,7 +105,7 @@ Partial Class SetupDialogForm
         Me.chkTrace.Location = New System.Drawing.Point(296, 165)
         Me.chkTrace.Name = "chkTrace"
         Me.chkTrace.Size = New System.Drawing.Size(69, 17)
-        Me.chkTrace.TabIndex = 8
+        Me.chkTrace.TabIndex = 60
         Me.chkTrace.Text = "Trace on"
         Me.chkTrace.UseVisualStyleBackColor = True
         '
@@ -114,7 +114,7 @@ Partial Class SetupDialogForm
         Me.txtIP.Location = New System.Drawing.Point(84, 48)
         Me.txtIP.Name = "txtIP"
         Me.txtIP.Size = New System.Drawing.Size(118, 20)
-        Me.txtIP.TabIndex = 10
+        Me.txtIP.TabIndex = 1
         '
         'Label2
         '
@@ -134,12 +134,12 @@ Partial Class SetupDialogForm
         Me.Label3.TabIndex = 13
         Me.Label3.Text = "Port 2 Name"
         '
-        'TextBox1
+        'txtPortName1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(84, 100)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(118, 20)
-        Me.TextBox1.TabIndex = 12
+        Me.txtPortName1.Location = New System.Drawing.Point(84, 100)
+        Me.txtPortName1.Name = "txtPortName1"
+        Me.txtPortName1.Size = New System.Drawing.Size(118, 20)
+        Me.txtPortName1.TabIndex = 20
         '
         'Label4
         '
@@ -150,12 +150,12 @@ Partial Class SetupDialogForm
         Me.Label4.TabIndex = 15
         Me.Label4.Text = "Port 3 Name"
         '
-        'TextBox2
+        'txtPortName2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(84, 126)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(118, 20)
-        Me.TextBox2.TabIndex = 14
+        Me.txtPortName2.Location = New System.Drawing.Point(84, 126)
+        Me.txtPortName2.Name = "txtPortName2"
+        Me.txtPortName2.Size = New System.Drawing.Size(118, 20)
+        Me.txtPortName2.TabIndex = 30
         '
         'Label5
         '
@@ -166,12 +166,12 @@ Partial Class SetupDialogForm
         Me.Label5.TabIndex = 17
         Me.Label5.Text = "Port 4 Name"
         '
-        'TextBox3
+        'txtPortName3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(84, 152)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(118, 20)
-        Me.TextBox3.TabIndex = 16
+        Me.txtPortName3.Location = New System.Drawing.Point(84, 152)
+        Me.txtPortName3.Name = "txtPortName3"
+        Me.txtPortName3.Size = New System.Drawing.Size(118, 20)
+        Me.txtPortName3.TabIndex = 40
         '
         'Label6
         '
@@ -182,12 +182,12 @@ Partial Class SetupDialogForm
         Me.Label6.TabIndex = 19
         Me.Label6.Text = "Port 5 Name"
         '
-        'TextBox4
+        'txtPortName4
         '
-        Me.TextBox4.Location = New System.Drawing.Point(84, 178)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(118, 20)
-        Me.TextBox4.TabIndex = 18
+        Me.txtPortName4.Location = New System.Drawing.Point(84, 178)
+        Me.txtPortName4.Name = "txtPortName4"
+        Me.txtPortName4.Size = New System.Drawing.Size(118, 20)
+        Me.txtPortName4.TabIndex = 50
         '
         'Label7
         '
@@ -198,12 +198,12 @@ Partial Class SetupDialogForm
         Me.Label7.TabIndex = 21
         Me.Label7.Text = "Port 1 Name"
         '
-        'TextBox5
+        'txtPortName0
         '
-        Me.TextBox5.Location = New System.Drawing.Point(84, 74)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(118, 20)
-        Me.TextBox5.TabIndex = 20
+        Me.txtPortName0.Location = New System.Drawing.Point(84, 74)
+        Me.txtPortName0.Name = "txtPortName0"
+        Me.txtPortName0.Size = New System.Drawing.Size(118, 20)
+        Me.txtPortName0.TabIndex = 10
         '
         'SetupDialogForm
         '
@@ -213,15 +213,15 @@ Partial Class SetupDialogForm
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(380, 229)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.TextBox5)
+        Me.Controls.Add(Me.txtPortName0)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.TextBox4)
+        Me.Controls.Add(Me.txtPortName4)
         Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.TextBox3)
+        Me.Controls.Add(Me.txtPortName3)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.txtPortName2)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txtPortName1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtIP)
         Me.Controls.Add(Me.chkTrace)
@@ -243,21 +243,21 @@ Partial Class SetupDialogForm
     End Sub
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents OK_Button As System.Windows.Forms.Button
-	Friend WithEvents Cancel_Button As System.Windows.Forms.Button
-	Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Cancel_Button As System.Windows.Forms.Button
+    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents chkTrace As System.Windows.Forms.CheckBox
     Friend WithEvents txtIP As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtPortName1 As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtPortName2 As System.Windows.Forms.TextBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
+    Friend WithEvents txtPortName3 As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents txtPortName4 As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
+    Friend WithEvents txtPortName0 As System.Windows.Forms.TextBox
 
 End Class
