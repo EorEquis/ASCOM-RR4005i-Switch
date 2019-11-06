@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="RigRunnerIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.18</Value>
+    </Setting>
+    <Setting Name="DeviceName_0" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Roof</Value>
+    </Setting>
+    <Setting Name="DeviceName_1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Pier</Value>
+    </Setting>
+    <Setting Name="DeviceName_2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ObsCommand</Value>
+    </Setting>
+    <Setting Name="DeviceName_3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ObsCam</Value>
+    </Setting>
+    <Setting Name="DeviceName_4" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Router</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
