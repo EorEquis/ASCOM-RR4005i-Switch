@@ -8,8 +8,8 @@ Public Class SetupDialogForm
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click ' OK button event handler
         ' Persist new values of user settings to the ASCOM profile
-        Switch.comPort = ComboBoxComPort.SelectedItem ' Update the state variables with results from the dialogue
         Switch.traceState = chkTrace.Checked
+        Switch.RRIP = txtIP.Text
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
@@ -39,13 +39,7 @@ Public Class SetupDialogForm
 
     Private Sub InitUI()
         chkTrace.Checked = Switch.traceState
-        ' set the list of com ports to those that are currently available
-        ComboBoxComPort.Items.Clear()
-        ComboBoxComPort.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames())       ' use System.IO because it's static
-        ' select the current port if possible
-        If ComboBoxComPort.Items.Contains(Switch.comPort) Then
-            ComboBoxComPort.SelectedItem = Switch.comPort
-        End If
+        txtIP.Text = Switch.RRIP
     End Sub
 
 End Class

@@ -67,9 +67,13 @@ Public Class Switch
     Friend Shared traceStateProfileName As String = "Trace Level"
     Friend Shared comPortDefault As String = "COM1"
     Friend Shared traceStateDefault As String = "False"
+    Friend Shared IPProfileName As String = "IP Address"
+    Friend Shared IPDefault As String = "0.0.0.0"
 
     Friend Shared comPort As String ' Variables to hold the currrent device configuration
     Friend Shared traceState As Boolean
+    Friend Shared RRIP As String
+    Friend Shared PortNames(4) As String
 
     Private connectedState As Boolean ' Private variable to hold the connected state
     Private utilities As Util ' Private variable to hold an ASCOM Utilities object
@@ -507,6 +511,7 @@ Public Class Switch
             driverProfile.DeviceType = "Switch"
             traceState = Convert.ToBoolean(driverProfile.GetValue(driverID, traceStateProfileName, String.Empty, traceStateDefault))
             comPort = driverProfile.GetValue(driverID, comPortProfileName, String.Empty, comPortDefault)
+            RRIP = driverProfile.GetValue(driverID, IPProfileName, String.Empty, IPDefault)
         End Using
     End Sub
 
@@ -518,6 +523,7 @@ Public Class Switch
             driverProfile.DeviceType = "Switch"
             driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString())
             driverProfile.WriteValue(driverID, comPortProfileName, comPort.ToString())
+            driverProfile.WriteValue(driverID, IPProfileName, RRIP)
         End Using
 
     End Sub
