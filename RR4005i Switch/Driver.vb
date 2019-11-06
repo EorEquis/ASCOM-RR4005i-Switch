@@ -45,6 +45,8 @@ Imports System.Xml
 <ClassInterface(ClassInterfaceType.None)> _
 Public Class Switch
 
+#Region "Variables"
+
     ' The Guid attribute sets the CLSID for ASCOM.RR4005i.Switch
     ' The ClassInterface/None addribute prevents an empty interface called
     ' _RR4005i from being created and used as the [default] interface
@@ -82,6 +84,10 @@ Public Class Switch
     Friend Shared WebClient As System.Net.WebClient
     Friend Shared result As String = ""
 
+#End Region
+
+#Region "Constructor"
+
     '
     ' Constructor - Must be public for COM registration!
     '
@@ -100,6 +106,9 @@ Public Class Switch
 
         TL.LogMessage("Switch", "Completed initialisation")
     End Sub
+
+#End Region
+
 
     '
     ' PUBLIC COM INTERFACE ISwitchV2 IMPLEMENTATION
@@ -139,6 +148,7 @@ Public Class Switch
     End Function
 
     Public Sub CommandBlind(ByVal Command As String, Optional ByVal Raw As Boolean = False) Implements ISwitchV2.CommandBlind
+        ' TODO - Implement this
         CheckConnected("CommandBlind")
         ' Call CommandString and return as soon as it finishes
         Me.CommandString(Command, Raw)
@@ -148,6 +158,7 @@ Public Class Switch
 
     Public Function CommandBool(ByVal Command As String, Optional ByVal Raw As Boolean = False) As Boolean _
         Implements ISwitchV2.CommandBool
+        ' TODO - Implement this
         CheckConnected("CommandBool")
         Dim ret As String = CommandString(Command, Raw)
         ' TODO decode the return string and return true or false
@@ -157,6 +168,7 @@ Public Class Switch
 
     Public Function CommandString(ByVal Command As String, Optional ByVal Raw As Boolean = False) As String _
         Implements ISwitchV2.CommandString
+        ' TODO - Implement this
         CheckConnected("CommandString")
         ' it's a good idea to put all the low level communication with the device here,
         ' then all communication calls this function
@@ -177,13 +189,19 @@ Public Class Switch
             End If
 
             If value Then
-                connectedState = True
-                TL.LogMessage("Connected Set", "Connecting to port " + comPort)
-                ' TODO connect to the device by checking status.xml with XMLReader
+                Dim reader As New XmlTextReader(RRIP + "/status.xml")
+                Dim document As New XmlDocument
+                Try
+                    document.Load(reader)
+                    connectedState = True
+                    TL.LogMessage("Connected Set", "Connected")
+                Catch ex As Exception
+                    connectedState = False
+                    TL.LogMessage("Connected Set", "Failure to connect")
+                End Try
             Else
                 connectedState = False
-                TL.LogMessage("Connected Set", "Disconnecting from port " + comPort)
-                ' TODO disconnect from the device by checking status.xml with XMLReader
+                TL.LogMessage("Connected Set", "Disconnected")
             End If
         End Set
     End Property
@@ -224,7 +242,7 @@ Public Class Switch
 
     Public ReadOnly Property Name As String Implements ISwitchV2.Name
         Get
-            Dim s_name As String = "Short driver name - please customise"
+            Dim s_name As String = "RR4005i ASCOM Switch"
             TL.LogMessage("Name Get", s_name)
             Return s_name
         End Get
@@ -239,6 +257,86 @@ Public Class Switch
         utilities = Nothing
         astroUtilities.Dispose()
         astroUtilities = Nothing
+    End Sub
+
+#End Region
+
+#Region "Private properties and methods"
+    ' here are some useful properties and methods that can be used as required
+    ' to help with
+
+#Region "ASCOM Registration"
+
+    Private Shared Sub RegUnregASCOM(ByVal bRegister As Boolean)
+
+        Using P As New Profile() With {.DeviceType = "Switch"}
+            If bRegister Then
+                P.Register(driverID, driverDescription)
+            Else
+                P.Unregister(driverID)
+            End If
+        End Using
+
+    End Sub
+
+    <ComRegisterFunction()> _
+    Public Shared Sub RegisterASCOM(ByVal T As Type)
+
+        RegUnregASCOM(True)
+
+    End Sub
+
+    <ComUnregisterFunction()> _
+    Public Shared Sub UnregisterASCOM(ByVal T As Type)
+
+        RegUnregASCOM(False)
+
+    End Sub
+
+#End Region
+
+    ''' <summary>
+    ''' Returns true if there is a valid connection to the driver hardware
+    ''' </summary>
+    Private ReadOnly Property IsConnected As Boolean
+        Get
+            ' TODO check that the driver hardware connection exists and is connected to the hardware
+            Return connectedState
+        End Get
+    End Property
+
+    ''' <summary>
+    ''' Use this function to throw an exception if we aren't connected to the hardware
+    ''' </summary>
+    ''' <param name="message"></param>
+    Private Sub CheckConnected(ByVal message As String)
+        If Not IsConnected Then
+            Throw New NotConnectedException(message)
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Read the device configuration from the ASCOM Profile store
+    ''' </summary>
+    Friend Sub ReadProfile()
+        Using driverProfile As New Profile()
+            driverProfile.DeviceType = "Switch"
+            traceState = Convert.ToBoolean(driverProfile.GetValue(driverID, traceStateProfileName, String.Empty, traceStateDefault))
+            numSwitches = driverProfile.GetValue(driverID, numSwitchesProfileName, String.Empty, numSwitchesDefault)
+            RRIP = driverProfile.GetValue(driverID, IPProfileName, String.Empty, IPDefault)
+        End Using
+    End Sub
+
+    ''' <summary>
+    ''' Write the device configuration to the  ASCOM  Profile store
+    ''' </summary>
+    Friend Sub WriteProfile()
+        Using driverProfile As New Profile()
+            driverProfile.DeviceType = "Switch"
+            driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString())
+            driverProfile.WriteValue(driverID, IPProfileName, RRIP)
+        End Using
+
     End Sub
 
 #End Region
@@ -430,6 +528,8 @@ Public Class Switch
 #End Region
 #End Region
 
+#Region "ASCOM Validation Functions"
+
     ''' <summary>
     ''' Checks that the switch id is in range and throws an InvalidValueException if it isn't
     ''' </summary>
@@ -474,85 +574,20 @@ Public Class Switch
         End If
     End Sub
 
-
-#Region "Private properties and methods"
-    ' here are some useful properties and methods that can be used as required
-    ' to help with
-
-#Region "ASCOM Registration"
-
-    Private Shared Sub RegUnregASCOM(ByVal bRegister As Boolean)
-
-        Using P As New Profile() With {.DeviceType = "Switch"}
-            If bRegister Then
-                P.Register(driverID, driverDescription)
-            Else
-                P.Unregister(driverID)
-            End If
-        End Using
-
-    End Sub
-
-    <ComRegisterFunction()> _
-    Public Shared Sub RegisterASCOM(ByVal T As Type)
-
-        RegUnregASCOM(True)
-
-    End Sub
-
-    <ComUnregisterFunction()> _
-    Public Shared Sub UnregisterASCOM(ByVal T As Type)
-
-        RegUnregASCOM(False)
-
-    End Sub
-
 #End Region
 
-    ''' <summary>
-    ''' Returns true if there is a valid connection to the driver hardware
-    ''' </summary>
-    Private ReadOnly Property IsConnected As Boolean
-        Get
-            ' TODO check that the driver hardware connection exists and is connected to the hardware
-            Return connectedState
-        End Get
-    End Property
+#Region "My Helper Functions"
 
-    ''' <summary>
-    ''' Use this function to throw an exception if we aren't connected to the hardware
-    ''' </summary>
-    ''' <param name="message"></param>
-    Private Sub CheckConnected(ByVal message As String)
-        If Not IsConnected Then
-            Throw New NotConnectedException(message)
+    Friend Function convertBool(value As Boolean) As Integer
+        If value Then
+            Return 1
+        Else
+            Return 0
         End If
-    End Sub
-
-    ''' <summary>
-    ''' Read the device configuration from the ASCOM Profile store
-    ''' </summary>
-    Friend Sub ReadProfile()
-        Using driverProfile As New Profile()
-            driverProfile.DeviceType = "Switch"
-            traceState = Convert.ToBoolean(driverProfile.GetValue(driverID, traceStateProfileName, String.Empty, traceStateDefault))
-            numSwitches = driverProfile.GetValue(driverID, numSwitchesProfileName, String.Empty, numSwitchesDefault)
-            RRIP = driverProfile.GetValue(driverID, IPProfileName, String.Empty, IPDefault)
-        End Using
-    End Sub
-
-    ''' <summary>
-    ''' Write the device configuration to the  ASCOM  Profile store
-    ''' </summary>
-    Friend Sub WriteProfile()
-        Using driverProfile As New Profile()
-            driverProfile.DeviceType = "Switch"
-            driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString())
-            driverProfile.WriteValue(driverID, IPProfileName, RRIP)
-        End Using
-
-    End Sub
+    End Function
 
 #End Region
+
+
 
 End Class
