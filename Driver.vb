@@ -43,6 +43,9 @@ Imports System.Collections.Generic
 Imports System.Globalization
 Imports System.Runtime.InteropServices
 Imports System.Text
+Imports System.Net
+Imports System.xml
+
 
 <Guid("da08b3e4-17f3-49f5-96bf-8e7ec2910459")> _
 <ClassInterface(ClassInterfaceType.None)> _
@@ -72,7 +75,8 @@ Public Class Switch
     Friend Shared portNamesProfileName As String = "Port Name"
     Friend Shared portNameDefault() As String = {"Port 1", "Port 2", "Port 3", "Port 4", "Port 5"}
 
-    Friend Shared comPort As String ' Variables to hold the currrent device configuration
+    ' Variables to hold the currrent device configuration
+
     Friend Shared traceState As Boolean
     Friend Shared RRIP As String
     Friend Shared PortNames(4) As String
@@ -140,28 +144,31 @@ Public Class Switch
 
     Public Sub CommandBlind(ByVal Command As String, Optional ByVal Raw As Boolean = False) Implements ISwitchV2.CommandBlind
         CheckConnected("CommandBlind")
-        ' Call CommandString and return as soon as it finishes
-        Me.CommandString(Command, Raw)
-        ' or
-        Throw New MethodNotImplementedException("CommandBlind")
+        Dim webclient As New System.Net.WebClient, result As String
+        Try
+            result = webclient.DownloadString(Command)
+        Catch ex As Exception
+            TL.LogMessage("CommandBline", "Error Sending Command " & Command & " : " & ex.Message)
+        End Try
     End Sub
 
     Public Function CommandBool(ByVal Command As String, Optional ByVal Raw As Boolean = False) As Boolean _
         Implements ISwitchV2.CommandBool
-        CheckConnected("CommandBool")
-        Dim ret As String = CommandString(Command, Raw)
-        ' TODO decode the return string and return true or false
-        ' or
         Throw New MethodNotImplementedException("CommandBool")
     End Function
 
     Public Function CommandString(ByVal Command As String, Optional ByVal Raw As Boolean = False) As String _
         Implements ISwitchV2.CommandString
-        CheckConnected("CommandString")
-        ' it's a good idea to put all the low level communication with the device here,
-        ' then all communication calls this function
-        ' you need something to ensure that only one command is in progress at a time
-        Throw New MethodNotImplementedException("CommandString")
+
+        Dim document As New XmlDocument, reader As New XmlTextReader(Command)
+        Try
+            document.Load(reader)
+            Return document.InnerXml.ToString()
+        Catch ex As Exception
+            TL.LogMessage("CommandBool", "Error Sending Command " & Command & " : " & ex.Message)
+            Return ""
+        End Try
+
     End Function
 
     Public Property Connected() As Boolean Implements ISwitchV2.Connected
@@ -176,13 +183,20 @@ Public Class Switch
             End If
 
             If value Then
-                connectedState = True
-                TL.LogMessage("Connected Set", "Connecting to port " + comPort)
-                ' TODO connect to the device
+                Dim reader As New XmlTextReader("http://" & RRIP & "/status.xml")
+                Dim document As New XmlDocument
+
+                Try
+                    document.Load(reader)
+                    connectedState = True
+                    TL.LogMessage("Connected Set", "Connected to RigRunner at " & RRIP)
+                Catch ex As Exception
+                    TL.LogMessage("Connected Set", "Error connecting to RigRunner at " & RRIP)
+                End Try
+
             Else
                 connectedState = False
-                TL.LogMessage("Connected Set", "Disconnecting from port " + comPort)
-                ' TODO disconnect from the device
+                TL.LogMessage("Connected Set", "Disconnected from RigRunner")
             End If
         End Set
     End Property
@@ -200,7 +214,7 @@ Public Class Switch
         Get
             Dim m_version As Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
             ' TODO customise this driver description
-            Dim s_driverInfo As String = "Information about the driver itself. Version: " + m_version.Major.ToString() + "." + m_version.Minor.ToString()
+            Dim s_driverInfo As String = "ASCOM Switch Driver for West Mountain Radio's RIGRunner 4005i. Version: " + m_version.Major.ToString() + "." + m_version.Minor.ToString()
             TL.LogMessage("DriverInfo Get", s_driverInfo)
             Return s_driverInfo
         End Get
@@ -223,7 +237,7 @@ Public Class Switch
 
     Public ReadOnly Property Name As String Implements ISwitchV2.Name
         Get
-            Dim s_name As String = "Short driver name - please customise"
+            Dim s_name As String = "ASCOM RIGRunner 4005i Switch Driver"
             TL.LogMessage("Name Get", s_name)
             Return s_name
         End Get
@@ -244,7 +258,8 @@ Public Class Switch
 
 #Region "ISwitchV2 Implementation"
 
-    Dim numSwitches As Short
+    ' Hardcoded right now, presuming a single RR4005i.  TODO : Make this dynamic, and able to accept > 1 rigrunner
+    Dim numSwitches As Short = 5
 
     ''' <summary>
     ''' The number of switches managed by this driver
@@ -263,8 +278,8 @@ Public Class Switch
     ''' <returns>The name of the switch</returns>
     Public Function GetSwitchName(id As Short) As String Implements ISwitchV2.GetSwitchName
         Validate("GetSwitchName", id)
-        TL.LogMessage("GetSwitchName", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("GetSwitchName")
+        TL.LogMessage("GetSwitchName", PortNames(id))
+        Return PortNames(id)
     End Function
 
     ''' <summary>
@@ -273,7 +288,7 @@ Public Class Switch
     ''' <param name="id">The number of the switch whose name is to be set</param>
     ''' <param name="name">The name of the switch</param>
     Sub SetSwitchName(id As Short, name As String) Implements ISwitchV2.SetSwitchName
-        Validate("SetSwitchName", id)
+        'Not implemented : not allowing client to set port names
         TL.LogMessage("SetSwitchName", "Not Implemented")
         Throw New ASCOM.MethodNotImplementedException("SetSwitchName")
     End Sub
@@ -286,9 +301,10 @@ Public Class Switch
     ''' <exception cref="MethodNotImplementedException">If the method is not implemented</exception>
     ''' <exception cref="InvalidValueException">If id is outside the range 0 to MaxSwitch - 1</exception>
     Public Function GetSwitchDescription(id As Short) As String Implements ISwitchV2.GetSwitchDescription
+        ' Just return the switch name for now : TODO - Implement longer desc?
         Validate("GetSwitchDescription", id)
-        TL.LogMessage("GetSwitchDescription", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("GetSwitchDescription")
+        TL.LogMessage("GetSwitchDescription", PortNames(id))
+        Return PortNames(id)
     End Function
 
     ''' <summary>
@@ -302,6 +318,7 @@ Public Class Switch
     ''' <exception cref="MethodNotImplementedException">If the method is not implemented</exception>
     ''' <exception cref="InvalidValueException">If id is outside the range 0 to MaxSwitch - 1</exception>
     Public Function CanWrite(id As Short) As Boolean Implements ISwitchV2.CanWrite
+        ' Always return true.  All ports on the rigrunner can be turned on or off
         Validate("CanWrite", id)
         TL.LogMessage("CanWrite", "Default true")
         Return True
@@ -316,8 +333,13 @@ Public Class Switch
     ''' <returns>True or false</returns>
     Function GetSwitch(id As Short) As Boolean Implements ISwitchV2.GetSwitch
         Validate("GetSwitch", id, True)
-        TL.LogMessage("GetSwitch", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("GetSwitch")
+
+        Dim xmld As New XmlDocument, result As Boolean
+        xmld.LoadXml(CommandString("http://" & RRIP & "/status.xml"))
+        result = convertInt(CInt(xmld.SelectSingleNode("/rr4005i/RAILENA" & id.ToString).InnerText))
+        TL.LogMessage("GetSwitch", "id " & id.ToString & " : " & result.ToString)
+        Return result
+
     End Function
 
     ''' <summary>
@@ -329,13 +351,16 @@ Public Class Switch
     ''' <param name="State">The required switch state</param>
     Sub SetSwitch(id As Short, state As Boolean) Implements ISwitchV2.SetSwitch
         Validate("SetSwitch", id, True)
-        TL.LogMessage("SetSwitch", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("SetSwitch")
+        CommandBlind("http://" & RRIP & "/index.htm?RAILENA" & id.ToString & "=" & convertBool(state))
+        TL.LogMessage("SetSwitch", "Set switch " & id.ToString & " to " & state.ToString)
     End Sub
 
 #End Region
 
 #Region "Analogue members"
+    ' Forcing these to be implemented is silly, but here we are.  ASCOM requires these to not throw a MethodNotImplementedException
+    ' so we'll just hardcode 0.0 and 1.0 values, regardless of the ID, per the documentation
+
     ''' <summary>
     ''' returns the maximum analogue value for this switch
     ''' boolean switches must return 1.0
@@ -344,8 +369,8 @@ Public Class Switch
     ''' <returns></returns>
     Function MaxSwitchValue(id As Short) As Double Implements ISwitchV2.MaxSwitchValue
         Validate("MaxSwitchValue", id)
-        TL.LogMessage("MaxSwitchValue", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("MaxSwitchValue")
+        TL.LogMessage("MaxSwitchValue", "1.0")
+        Return 1.0
     End Function
 
     ''' <summary>
@@ -356,8 +381,8 @@ Public Class Switch
     ''' <returns></returns>
     Function MinSwitchValue(id As Short) As Double Implements ISwitchV2.MinSwitchValue
         Validate("MinSwitchValue", id)
-        TL.LogMessage("MinSwitchValue", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("MinSwitchValue")
+        TL.LogMessage("MinSwitchValue", "0.0")
+        Return 0.0
     End Function
 
     ''' <summary>
@@ -370,18 +395,25 @@ Public Class Switch
     ''' <returns></returns>
     Function SwitchStep(id As Short) As Double Implements ISwitchV2.SwitchStep
         Validate("SwitchStep", id)
-        TL.LogMessage("SwitchStep", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("SwitchStep")
+        TL.LogMessage("SwitchStep", "1.0")
+        Return 1.0
     End Function
 
     ''' <summary>
     ''' returns the analogue switch value for switch id
     ''' boolean switches must throw a MethodNotImplementedException
+    ''' 
+    ''' 
+    ''' Ok, this is fucking brilliant.  The ASCOM documentation at https://ascom-standards.org/Help/Developer/html/M_ASCOM_DeviceInterface_ISwitchV2_GetSwitchValue.htm 
+    ''' says specifically : "Must be implemented, must not throw a MethodNotImplementedException."
+    ''' But the template says "boolean switches must throw a MethodNotImplementedException"
+    ''' WTF
+    ''' 
     ''' </summary>
     ''' <param name="id"></param>
     ''' <returns></returns>
     Function GetSwitchValue(id As Short) As Double Implements ISwitchV2.GetSwitchValue
-        Validate("GetSwitchValue", id, False)
+        ' Ok, we're going with the template, and not implementing.  We'll see what breaks.
         TL.LogMessage("GetSwitchValue", "Not Implemented")
         Throw New ASCOM.MethodNotImplementedException("GetSwitchValue")
     End Function
@@ -395,10 +427,6 @@ Public Class Switch
     ''' <param name="id"></param>
     ''' <param name="value"></param>
     Sub SetSwitchValue(id As Short, value As Double) Implements ISwitchV2.SetSwitchValue
-        Validate("SetSwitchValue", id, value)
-        If value < MinSwitchValue(id) Or value > MaxSwitchValue(id) Then
-            Throw New InvalidValueException("", value.ToString(), String.Format("{0} to {1}", MinSwitchValue(id), MaxSwitchValue(id)))
-        End If
         TL.LogMessage("SetSwitchValue", "Not Implemented")
         Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
     End Sub
@@ -512,7 +540,6 @@ Public Class Switch
         Using driverProfile As New Profile()
             driverProfile.DeviceType = "Switch"
             traceState = Convert.ToBoolean(driverProfile.GetValue(driverID, traceStateProfileName, String.Empty, traceStateDefault))
-            comPort = driverProfile.GetValue(driverID, comPortProfileName, String.Empty, comPortDefault)
             RRIP = driverProfile.GetValue(driverID, IPProfileName, String.Empty, IPDefault)
             For i As Integer = 0 To 4
                 PortNames(i) = driverProfile.GetValue(driverID, portNamesProfileName, i, portNameDefault(i))
@@ -527,7 +554,6 @@ Public Class Switch
         Using driverProfile As New Profile()
             driverProfile.DeviceType = "Switch"
             driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString())
-            driverProfile.WriteValue(driverID, comPortProfileName, comPort.ToString())
             driverProfile.WriteValue(driverID, IPProfileName, RRIP)
             For i As Integer = 0 To 4
                 driverProfile.WriteValue(driverID, portNamesProfileName, PortNames(i), i.ToString)
@@ -536,6 +562,24 @@ Public Class Switch
 
     End Sub
 
+#End Region
+
+#Region "My Helper Functions"
+    Friend Shared Function convertBool(value As Boolean) As Integer
+        If value Then
+            Return 1
+        Else
+            Return 0
+        End If
+    End Function
+
+    Friend Shared Function convertInt(value As Integer) As Boolean
+        If value = 1 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 #End Region
 
 End Class
