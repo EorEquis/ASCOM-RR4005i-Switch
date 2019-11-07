@@ -1,3 +1,5 @@
+Imports System.Threading
+
 'tabs=4
 ' --------------------------------------------------------------------------------
 ' TODO fill in this information for your driver, then remove this line!
@@ -44,7 +46,7 @@ Imports System.Globalization
 Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Net
-Imports System.xml
+Imports System.Xml
 
 
 <Guid("da08b3e4-17f3-49f5-96bf-8e7ec2910459")> _
@@ -74,7 +76,6 @@ Public Class Switch
     Friend Shared IPDefault As String = "0.0.0.0"
     Friend Shared portNamesProfileName As String = "Port Name"
     Friend Shared portNameDefault() As String = {"Port 1", "Port 2", "Port 3", "Port 4", "Port 5"}
-
 
     ' Variables to hold the currrent device configuration
 
@@ -146,11 +147,17 @@ Public Class Switch
     Public Sub CommandBlind(ByVal Command As String, Optional ByVal Raw As Boolean = False) Implements ISwitchV2.CommandBlind
         CheckConnected("CommandBlind")
         Dim webclient As New System.Net.WebClient, result As String
+        Dim webMutex As Mutex
+        webMutex = New Mutex(False, "SetSwitchMutex")
+        webMutex.WaitOne()
         Try
             result = webclient.DownloadString(Command)
         Catch ex As Exception
             TL.LogMessage("CommandBlind", "Error Sending Command " & Command & " : " & ex.Message)
+        Finally
+            webMutex.ReleaseMutex()
         End Try
+
     End Sub
 
     Public Function CommandBool(ByVal Command As String, Optional ByVal Raw As Boolean = False) As Boolean _
@@ -574,7 +581,6 @@ Public Class Switch
             For i As Integer = 0 To 4
                 PortNames(i) = driverProfile.GetValue(driverID, portNamesProfileName, i, portNameDefault(i))
             Next
-
         End Using
     End Sub
 
