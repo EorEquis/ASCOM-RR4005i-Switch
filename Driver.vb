@@ -565,6 +565,8 @@ Public Class Switch
 #End Region
 
 #Region "My Helper Functions"
+    ' There's probably better ways to do this, but this is simple and readable and, well, I'm stupid and lazy, so here we are.
+
     Friend Shared Function convertBool(value As Boolean) As Integer
         If value Then
             Return 1
