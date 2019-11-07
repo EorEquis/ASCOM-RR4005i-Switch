@@ -75,6 +75,7 @@ Public Class Switch
     Friend Shared portNamesProfileName As String = "Port Name"
     Friend Shared portNameDefault() As String = {"Port 1", "Port 2", "Port 3", "Port 4", "Port 5"}
 
+
     ' Variables to hold the currrent device configuration
 
     Friend Shared traceState As Boolean
@@ -202,7 +203,7 @@ Public Class Switch
                             End If
                         End If
                     Next
-                    TL.LogMessage("Connected Set", "Connected to RigRunner at " & RRIP)
+                    TL.LogMessage("Connected Set", "Connected to RIGRunner at " & RRIP)
                     connectedState = True
                 Catch ex As Exception
                     TL.LogMessage("Connected Set", "Error connecting to RigRunner at " & RRIP)
@@ -511,6 +512,7 @@ Public Class Switch
     ' here are some useful properties and methods that can be used as required
     ' to help with
 
+
 #Region "ASCOM Registration"
 
     Private Shared Sub RegUnregASCOM(ByVal bRegister As Boolean)
@@ -572,6 +574,7 @@ Public Class Switch
             For i As Integer = 0 To 4
                 PortNames(i) = driverProfile.GetValue(driverID, portNamesProfileName, i, portNameDefault(i))
             Next
+
         End Using
     End Sub
 
@@ -593,6 +596,8 @@ Public Class Switch
 #End Region
 
 #Region "My Helper Functions"
+
+
     ' There's probably better ways to do this, but this is simple and readable and, well, I'm stupid and lazy, so here we are.
 
     Friend Shared Function convertBool(value As Boolean) As Integer
