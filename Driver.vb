@@ -148,7 +148,7 @@ Public Class Switch
         Try
             result = webclient.DownloadString(Command)
         Catch ex As Exception
-            TL.LogMessage("CommandBline", "Error Sending Command " & Command & " : " & ex.Message)
+            TL.LogMessage("CommandBlind", "Error Sending Command " & Command & " : " & ex.Message)
         End Try
     End Sub
 
@@ -183,19 +183,47 @@ Public Class Switch
             End If
 
             If value Then
-                Dim reader As New XmlTextReader("http://" & RRIP & "/status.xml")
-                Dim document As New XmlDocument
 
+                '**********************************
+                ' We should be able to hanlde both reading the port names and verifying connectivity in one step
+                ' This presumes firmware 1.14 or later, should probably modify this to account for earlier devices
+
+                Dim webclient As New System.Net.WebClient, result As String, splitChar As String = vbCrLf, index As Integer
                 Try
-                    document.Load(reader)
-                    connectedState = True
+                    result = webclient.DownloadString("http://192.168.1.18/settings.cgi")
+                    Dim strAry() As String = result.Split(splitChar)
+                    For Each line As String In strAry
+                        line = Replace(line, vbLf, String.Empty)
+                        If line.StartsWith("RAILSTR") Then
+                            index = CInt(line.Substring(7, 1))
+                            PortNames(index) = line.Substring(9)
+                            If index = 4 Then
+                                Exit For
+                            End If
+                        End If
+                    Next
                     TL.LogMessage("Connected Set", "Connected to RigRunner at " & RRIP)
+                    connectedState = True
                 Catch ex As Exception
                     TL.LogMessage("Connected Set", "Error connecting to RigRunner at " & RRIP)
                 End Try
 
+                '***********************************
+
+                'Dim reader As New XmlTextReader("http://" & RRIP & "/status.xml")
+                'Dim document As New XmlDocument
+
+                'Try
+                '    document.Load(reader)
+                '    connectedState = True
+                '    TL.LogMessage("Connected Set", "Connected to RigRunner at " & RRIP)
+                'Catch ex As Exception
+                '    TL.LogMessage("Connected Set", "Error connecting to RigRunner at " & RRIP)
+                'End Try
+
             Else
                 connectedState = False
+                WriteProfile() ' Persist device configuration values to the ASCOM Profile store
                 TL.LogMessage("Connected Set", "Disconnected from RigRunner")
             End If
         End Set

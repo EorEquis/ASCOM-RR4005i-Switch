@@ -30,16 +30,6 @@ Partial Class SetupDialogForm
         Me.chkTrace = New System.Windows.Forms.CheckBox()
         Me.txtIP = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtPortName1 = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtPortName2 = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtPortName3 = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtPortName4 = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.txtPortName0 = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -125,86 +115,6 @@ Partial Class SetupDialogForm
         Me.Label2.TabIndex = 11
         Me.Label2.Text = "IP Address"
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 103)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(66, 13)
-        Me.Label3.TabIndex = 13
-        Me.Label3.Text = "Port 2 Name"
-        '
-        'txtPortName1
-        '
-        Me.txtPortName1.Location = New System.Drawing.Point(84, 100)
-        Me.txtPortName1.Name = "txtPortName1"
-        Me.txtPortName1.Size = New System.Drawing.Size(118, 20)
-        Me.txtPortName1.TabIndex = 20
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 129)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(66, 13)
-        Me.Label4.TabIndex = 15
-        Me.Label4.Text = "Port 3 Name"
-        '
-        'txtPortName2
-        '
-        Me.txtPortName2.Location = New System.Drawing.Point(84, 126)
-        Me.txtPortName2.Name = "txtPortName2"
-        Me.txtPortName2.Size = New System.Drawing.Size(118, 20)
-        Me.txtPortName2.TabIndex = 30
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(12, 155)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(66, 13)
-        Me.Label5.TabIndex = 17
-        Me.Label5.Text = "Port 4 Name"
-        '
-        'txtPortName3
-        '
-        Me.txtPortName3.Location = New System.Drawing.Point(84, 152)
-        Me.txtPortName3.Name = "txtPortName3"
-        Me.txtPortName3.Size = New System.Drawing.Size(118, 20)
-        Me.txtPortName3.TabIndex = 40
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 181)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(66, 13)
-        Me.Label6.TabIndex = 19
-        Me.Label6.Text = "Port 5 Name"
-        '
-        'txtPortName4
-        '
-        Me.txtPortName4.Location = New System.Drawing.Point(84, 178)
-        Me.txtPortName4.Name = "txtPortName4"
-        Me.txtPortName4.Size = New System.Drawing.Size(118, 20)
-        Me.txtPortName4.TabIndex = 50
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(12, 77)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(66, 13)
-        Me.Label7.TabIndex = 21
-        Me.Label7.Text = "Port 1 Name"
-        '
-        'txtPortName0
-        '
-        Me.txtPortName0.Location = New System.Drawing.Point(84, 74)
-        Me.txtPortName0.Name = "txtPortName0"
-        Me.txtPortName0.Size = New System.Drawing.Size(118, 20)
-        Me.txtPortName0.TabIndex = 10
-        '
         'SetupDialogForm
         '
         Me.AcceptButton = Me.OK_Button
@@ -212,16 +122,6 @@ Partial Class SetupDialogForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(380, 229)
-        Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.txtPortName0)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.txtPortName4)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.txtPortName3)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.txtPortName2)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.txtPortName1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtIP)
         Me.Controls.Add(Me.chkTrace)
@@ -249,15 +149,5 @@ Partial Class SetupDialogForm
     Friend WithEvents chkTrace As System.Windows.Forms.CheckBox
     Friend WithEvents txtIP As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents txtPortName1 As System.Windows.Forms.TextBox
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtPortName2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents txtPortName3 As System.Windows.Forms.TextBox
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents txtPortName4 As System.Windows.Forms.TextBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents txtPortName0 As System.Windows.Forms.TextBox
 
 End Class

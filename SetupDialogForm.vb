@@ -8,13 +8,13 @@ Public Class SetupDialogForm
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click ' OK button event handler
         ' Persist new values of user settings to the ASCOM profile
-        Dim tb As TextBox
+        'Dim tb As TextBox
         Switch.traceState = chkTrace.Checked
         Switch.RRIP = txtIP.Text
-        For i As Integer = 0 To 4
-            tb = Me.Controls("txtPortName" & i.ToString)
-            Switch.PortNames(i) = tb.Text
-        Next
+        'For i As Integer = 0 To 4
+        '    tb = Me.Controls("txtPortName" & i.ToString)
+        '    Switch.PortNames(i) = tb.Text
+        'Next
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -44,13 +44,14 @@ Public Class SetupDialogForm
     End Sub
 
     Private Sub InitUI()
-        Dim tb As TextBox
+        'Dim tb As TextBox
         chkTrace.Checked = Switch.traceState
         txtIP.Text = Switch.RRIP
-        For i As Integer = 0 To 4
-            tb = Me.Controls("txtPortName" & i.ToString)
-            tb.Text = Switch.PortNames(i)
-        Next
+
+        'For i As Integer = 0 To 4
+        '    tb = Me.Controls("txtPortName" & i.ToString)
+        '    tb.Text = Switch.PortNames(i)
+        'Next
     End Sub
 
 
