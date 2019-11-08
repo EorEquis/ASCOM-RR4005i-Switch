@@ -30,7 +30,7 @@ Partial Class SetupDialogForm
         Me.chkTrace = New System.Windows.Forms.CheckBox()
         Me.txtIP0 = New System.Windows.Forms.TextBox()
         Me.lblIP0 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.ddNumUnits = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblIP1 = New System.Windows.Forms.Label()
         Me.txtIP1 = New System.Windows.Forms.TextBox()
@@ -125,14 +125,14 @@ Partial Class SetupDialogForm
         Me.lblIP0.TabIndex = 11
         Me.lblIP0.Text = "Unit 1 IP Address"
         '
-        'ComboBox1
+        'ddNumUnits
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"1", "2", "3", "4", "5"})
-        Me.ComboBox1.Location = New System.Drawing.Point(107, 47)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(50, 21)
-        Me.ComboBox1.TabIndex = 61
+        Me.ddNumUnits.FormattingEnabled = True
+        Me.ddNumUnits.Items.AddRange(New Object() {"1", "2", "3", "4", "5"})
+        Me.ddNumUnits.Location = New System.Drawing.Point(107, 47)
+        Me.ddNumUnits.Name = "ddNumUnits"
+        Me.ddNumUnits.Size = New System.Drawing.Size(50, 21)
+        Me.ddNumUnits.TabIndex = 61
         '
         'Label3
         '
@@ -223,7 +223,7 @@ Partial Class SetupDialogForm
         Me.Controls.Add(Me.lblIP1)
         Me.Controls.Add(Me.txtIP1)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.ddNumUnits)
         Me.Controls.Add(Me.lblIP0)
         Me.Controls.Add(Me.txtIP0)
         Me.Controls.Add(Me.chkTrace)
@@ -251,7 +251,7 @@ Partial Class SetupDialogForm
     Friend WithEvents chkTrace As System.Windows.Forms.CheckBox
     Friend WithEvents txtIP0 As System.Windows.Forms.TextBox
     Friend WithEvents lblIP0 As System.Windows.Forms.Label
-    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
+    Friend WithEvents ddNumUnits As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents lblIP1 As System.Windows.Forms.Label
     Friend WithEvents txtIP1 As System.Windows.Forms.TextBox

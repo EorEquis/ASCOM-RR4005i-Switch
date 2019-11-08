@@ -206,31 +206,38 @@ Public Class Switch
                 '**********************************
                 ' We should be able to hanlde both reading the port names and verifying connectivity in one step
                 ' TODO : This presumes firmware 1.14 or later, should probably modify this to account for earlier devices
-
                 Dim webclient As New System.Net.WebClient, result As String, splitChar As String = vbCrLf, index As Integer
-                Try
-                    result = webclient.DownloadString("http://192.168.1.18/settings.cgi")
-                    Dim strAry() As String = result.Split(splitChar)
-                    For Each line As String In strAry
-                        line = Replace(line, vbLf, String.Empty)
-                        If line.StartsWith("RAILSTR") Then
-                            index = CInt(line.Substring(7, 1))
-                            PortNames(index) = line.Substring(9)
-                            If index = 4 Then
-                                Exit For
+                For i As Integer = 0 To NumUnits - 1
+                    Try
+                        result = webclient.DownloadString(RRIP(i) & "/settings.cgi")
+                        Dim strAry() As String = result.Split(splitChar)
+                        For Each line As String In strAry
+                            line = Replace(line, vbLf, String.Empty)
+                            If line.StartsWith("RAILSTR") Then
+                                index = CInt(line.Substring(7, 1))
+                                PortNames(index + (i * 5)) = line.Substring(9)
+                                If index = 4 Then
+                                    Exit For
+                                End If
                             End If
-                        End If
-                    Next
-                    TL.LogMessage("Connected Set", "Connected to RIGRunner at " & RRIP)
-                    connectedState = True
-                Catch ex As Exception
-                    TL.LogMessage("Connected Set", "Error connecting to RigRunner at " & RRIP)
-                End Try
+                        Next
+                        TL.LogMessage("Connected Set", "Connected to RIGRunner at " & RRIP(i))
+                        connectedState = True
+                    Catch ex As Exception
+                        TL.LogMessage("Connected Set", "Error connecting to RigRunner at " & RRIP(i))
+                    End Try
+                Next
+
             Else
                 connectedState = False
                 WriteProfile() ' Persist device configuration values to the ASCOM Profile store
-                TL.LogMessage("Connected Set", "Disconnected from RigRunner")
+                If NumUnits > 1 Then
+                    TL.LogMessage("Connected Set", "Disconnected from RigRunners")
+                Else
+                    TL.LogMessage("Connected Set", "Disconnected from RigRunner")
+                End If
             End If
+
         End Set
     End Property
 
