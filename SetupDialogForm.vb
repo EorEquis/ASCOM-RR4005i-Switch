@@ -10,7 +10,7 @@ Public Class SetupDialogForm
         ' Persist new values of user settings to the ASCOM profile
         'Dim tb As TextBox
         Switch.traceState = chkTrace.Checked
-        Switch.RRIP = txtIP.Text
+        Switch.RRIP = txtIP0.Text
         'For i As Integer = 0 To 4
         '    tb = Me.Controls("txtPortName" & i.ToString)
         '    Switch.PortNames(i) = tb.Text
@@ -46,7 +46,7 @@ Public Class SetupDialogForm
     Private Sub InitUI()
         'Dim tb As TextBox
         chkTrace.Checked = Switch.traceState
-        txtIP.Text = Switch.RRIP
+        txtIP0.Text = Switch.RRIP
 
         'For i As Integer = 0 To 4
         '    tb = Me.Controls("txtPortName" & i.ToString)
