@@ -11,7 +11,7 @@ Public Class SetupDialogForm
         Dim tb As TextBox
         Switch.traceState = chkTrace.Checked
         Switch.NumUnits = ddNumUnits.SelectedItem
-        For i As Integer = 0 To 4
+        For i As Integer = 0 To Switch.NumUnits - 1
             tb = Me.Controls("txtIP" & i.ToString)
             Switch.RRIP(i) = tb.Text
         Next
@@ -46,7 +46,7 @@ Public Class SetupDialogForm
     Private Sub InitUI()
         Dim tb As TextBox, lb As Label
         chkTrace.Checked = Switch.traceState
-        ddNumUnits.SelectedItem = Switch.NumUnits
+        ddNumUnits.SelectedItem = Switch.NumUnits.ToString
         For i As Integer = 0 To Switch.NumUnits - 1
             tb = Me.Controls("txtIP" & i.ToString)
             lb = Me.Controls("lblIP" & i.ToString)

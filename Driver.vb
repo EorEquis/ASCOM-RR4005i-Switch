@@ -611,7 +611,7 @@ Public Class Switch
             For i As Integer = 0 To (NumUnits * 5) - 1
                 iUnit = i \ 5   ' Calculate the unit number that would hold this port
                 iPort = i Mod 5 ' Calculate the port number on that unit
-                driverProfile.WriteValue(driverID, portNamesProfileName, iUnit.ToString & "\" & iPort.ToString, portNameDefault(i))
+                driverProfile.WriteValue(driverID, portNamesProfileName, PortNames(i), iUnit.ToString & "\" & iPort.ToString)
             Next
         End Using
 

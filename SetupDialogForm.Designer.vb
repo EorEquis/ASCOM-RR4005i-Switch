@@ -114,7 +114,7 @@ Partial Class SetupDialogForm
         Me.txtIP0.Location = New System.Drawing.Point(107, 74)
         Me.txtIP0.Name = "txtIP0"
         Me.txtIP0.Size = New System.Drawing.Size(118, 20)
-        Me.txtIP0.TabIndex = 1
+        Me.txtIP0.TabIndex = 10
         '
         'lblIP0
         '
@@ -132,7 +132,7 @@ Partial Class SetupDialogForm
         Me.ddNumUnits.Location = New System.Drawing.Point(107, 47)
         Me.ddNumUnits.Name = "ddNumUnits"
         Me.ddNumUnits.Size = New System.Drawing.Size(50, 21)
-        Me.ddNumUnits.TabIndex = 61
+        Me.ddNumUnits.TabIndex = 1
         '
         'Label3
         '
@@ -157,7 +157,7 @@ Partial Class SetupDialogForm
         Me.txtIP1.Location = New System.Drawing.Point(107, 100)
         Me.txtIP1.Name = "txtIP1"
         Me.txtIP1.Size = New System.Drawing.Size(118, 20)
-        Me.txtIP1.TabIndex = 63
+        Me.txtIP1.TabIndex = 20
         '
         'lblIP2
         '
@@ -173,7 +173,7 @@ Partial Class SetupDialogForm
         Me.txtIP2.Location = New System.Drawing.Point(107, 126)
         Me.txtIP2.Name = "txtIP2"
         Me.txtIP2.Size = New System.Drawing.Size(118, 20)
-        Me.txtIP2.TabIndex = 65
+        Me.txtIP2.TabIndex = 30
         '
         'lblIP3
         '
@@ -189,7 +189,7 @@ Partial Class SetupDialogForm
         Me.txtIP3.Location = New System.Drawing.Point(107, 152)
         Me.txtIP3.Name = "txtIP3"
         Me.txtIP3.Size = New System.Drawing.Size(118, 20)
-        Me.txtIP3.TabIndex = 67
+        Me.txtIP3.TabIndex = 40
         '
         'lblIP4
         '
@@ -205,7 +205,7 @@ Partial Class SetupDialogForm
         Me.txtIP4.Location = New System.Drawing.Point(107, 178)
         Me.txtIP4.Name = "txtIP4"
         Me.txtIP4.Size = New System.Drawing.Size(118, 20)
-        Me.txtIP4.TabIndex = 69
+        Me.txtIP4.TabIndex = 50
         '
         'SetupDialogForm
         '
