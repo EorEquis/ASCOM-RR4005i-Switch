@@ -131,7 +131,7 @@ Partial Class SetupDialogForm
         Me.ddNumUnits.Items.AddRange(New Object() {"1", "2", "3", "4", "5"})
         Me.ddNumUnits.Location = New System.Drawing.Point(107, 47)
         Me.ddNumUnits.Name = "ddNumUnits"
-        Me.ddNumUnits.Size = New System.Drawing.Size(50, 21)
+        Me.ddNumUnits.Size = New System.Drawing.Size(58, 21)
         Me.ddNumUnits.TabIndex = 1
         '
         'Label3
