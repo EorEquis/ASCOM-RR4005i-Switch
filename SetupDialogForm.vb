@@ -10,7 +10,7 @@ Public Class SetupDialogForm
         ' Persist new values of user settings to the ASCOM profile
         Dim tb As TextBox
         Switch.traceState = chkTrace.Checked
-        Switch.NumUnits = ddNumUnits.SelectedValue.ToString
+        Switch.NumUnits = ddNumUnits.SelectedItem
         For i As Integer = 0 To 4
             tb = Me.Controls("txtIP" & i.ToString)
             Switch.RRIP(i) = tb.Text
@@ -46,7 +46,7 @@ Public Class SetupDialogForm
     Private Sub InitUI()
         Dim tb As TextBox, lb As Label
         chkTrace.Checked = Switch.traceState
-        ddNumUnits.SelectedValue = CInt(Switch.NumUnits)
+        ddNumUnits.SelectedItem = Switch.NumUnits
         For i As Integer = 0 To Switch.NumUnits - 1
             tb = Me.Controls("txtIP" & i.ToString)
             lb = Me.Controls("lblIP" & i.ToString)
@@ -65,7 +65,8 @@ Public Class SetupDialogForm
 
 
     Private Sub ddNumUnits_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddNumUnits.SelectedIndexChanged
-        Switch.NumUnits = ddNumUnits.SelectedValue
+        Switch.NumUnits = CInt(ddNumUnits.SelectedItem)
         InitUI()
     End Sub
+
 End Class

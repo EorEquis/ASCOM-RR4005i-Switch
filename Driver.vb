@@ -209,7 +209,7 @@ Public Class Switch
                 Dim webclient As New System.Net.WebClient, result As String, splitChar As String = vbCrLf, index As Integer
                 For i As Integer = 0 To NumUnits - 1
                     Try
-                        result = webclient.DownloadString(RRIP(i) & "/settings.cgi")
+                        result = webclient.DownloadString("http://" & RRIP(i) & "/settings.cgi")
                         Dim strAry() As String = result.Split(splitChar)
                         For Each line As String In strAry
                             line = Replace(line, vbLf, String.Empty)
@@ -298,8 +298,7 @@ Public Class Switch
 
 #Region "ISwitchV2 Implementation"
 
-    ' Hardcoded right now, presuming a single RR4005i.  TODO : Make this dynamic, and able to accept > 1 rigrunner
-    Dim numSwitches As Short = 5
+    Dim numSwitches As Short = NumUnits * 5
 
     ''' <summary>
     ''' The number of switches managed by this driver
@@ -585,8 +584,10 @@ Public Class Switch
             driverProfile.DeviceType = "Switch"
             traceState = Convert.ToBoolean(driverProfile.GetValue(driverID, traceStateProfileName, String.Empty, traceStateDefault))
             NumUnits = driverProfile.GetValue(driverID, numberOfUnitsProfileName, String.Empty, numberOfUnitsDefault)
-            For i As Integer = 0 To (NumUnits * 5) - 1
+            For i As Integer = 0 To NumUnits - 1
                 RRIP(i) = driverProfile.GetValue(driverID, IPProfileName, i.ToString, IPDefault)
+            Next
+            For i As Integer = 0 To (NumUnits * 5) - 1
                 iUnit = i \ 5   ' Calculate the unit number that would hold this port
                 iPort = i Mod 5 ' Calculate the port number on that unit
                 PortNames(i) = driverProfile.GetValue(driverID, portNamesProfileName, iUnit.ToString & "\" & iPort.ToString, portNameDefault(i))
@@ -604,14 +605,13 @@ Public Class Switch
             driverProfile.DeviceType = "Switch"
             driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString())
             driverProfile.WriteValue(driverID, numberOfUnitsProfileName, NumUnits)
+            For i As Integer = 0 To NumUnits - 1
+                driverProfile.WriteValue(driverID, IPProfileName, RRIP(i), i.ToString)
+            Next
             For i As Integer = 0 To (NumUnits * 5) - 1
-                driverProfile.WriteValue(driverID, IPProfileName, i.ToString)
                 iUnit = i \ 5   ' Calculate the unit number that would hold this port
                 iPort = i Mod 5 ' Calculate the port number on that unit
                 driverProfile.WriteValue(driverID, portNamesProfileName, iUnit.ToString & "\" & iPort.ToString, portNameDefault(i))
-            Next
-            For i As Integer = 0 To 4
-                driverProfile.WriteValue(driverID, portNamesProfileName, PortNames(i), iUnit.ToString & "\" & iPort.ToString)
             Next
         End Using
 
