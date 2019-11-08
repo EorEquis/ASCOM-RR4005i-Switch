@@ -1,4 +1,3 @@
-Imports System.Threading
 
 'tabs=4
 ' --------------------------------------------------------------------------------
@@ -6,22 +5,15 @@ Imports System.Threading
 '
 ' ASCOM Switch driver for RR4005i
 '
-' Description:	Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam 
-'				nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam 
-'				erat, sed diam voluptua. At vero eos et accusam et justo duo 
-'				dolores et ea rebum. Stet clita kasd gubergren, no sea takimata 
-'				sanctus est Lorem ipsum dolor sit amet.
+' Description:	An ASCOM Switch driver to allow management of the West Mountain 
+'				Radio RIGRunner 4005i.
+'				http://www.westmountainradio.com/product_info.php?products_id=rr_4005i 
 '
 ' Implements:	ASCOM Switch interface version: 1.0
-' Author:		(XXX) Your N. Here <your@email.here>
 '
 ' Edit Log:
 '
-' Date			Who	Vers	Description
-' -----------	---	-----	-------------------------------------------------------
-' dd-mmm-yyyy	XXX	1.0.0	Initial edit, from Switch template
-' ---------------------------------------------------------------------------------
-'
+' See https://github.com/EorEquis/RR4005i-Switch
 '
 ' Your driver's ID is ASCOM.RR4005i.Switch
 '
@@ -31,8 +23,10 @@ Imports System.Threading
 '
 
 ' This definition is used to select code that's only applicable for one device type
+
 #Const Device = "Switch"
 
+Imports System.Threading
 Imports ASCOM
 Imports ASCOM.Astrometry
 Imports ASCOM.Astrometry.AstroUtils
@@ -57,10 +51,9 @@ Public Class Switch
     ' The ClassInterface/None addribute prevents an empty interface called
     ' _RR4005i from being created and used as the [default] interface
 
-    ' TODO Replace the not implemented exceptions with code to implement the function or
-    ' throw the appropriate ASCOM exception.
-    '
     Implements ISwitchV2
+
+#Region "Variables"
 
     '
     ' Driver ID and descriptive string that shows in the Chooser
@@ -68,25 +61,36 @@ Public Class Switch
     Friend Shared driverID As String = "ASCOM.RR4005i.Switch"
     Private Shared driverDescription As String = "RR4005i Switch"
 
-    Friend Shared comPortProfileName As String = "COM Port" 'Constants used for Profile persistence
+    'Constants used for Profile persistence
+
     Friend Shared traceStateProfileName As String = "Trace Level"
     Friend Shared comPortDefault As String = "COM1"
     Friend Shared traceStateDefault As String = "False"
     Friend Shared IPProfileName As String = "IP Address"
     Friend Shared IPDefault As String = "0.0.0.0"
     Friend Shared portNamesProfileName As String = "Port Name"
-    Friend Shared portNameDefault() As String = {"Port 1", "Port 2", "Port 3", "Port 4", "Port 5"}
+    Friend Shared portNameDefault(24) As String ' Filled later in constructor
+    Friend Shared deviceNameProfileName As String = "Device Name"
+    Friend Shared deviceNameDefault As String = "RR4005i"
+    Friend Shared numberOfUnitsProfileName As String = "Number Of Units"
+    Friend Shared numberOfUnitsDefault As String = "1"
 
     ' Variables to hold the currrent device configuration
 
     Friend Shared traceState As Boolean
-    Friend Shared RRIP As String
-    Friend Shared PortNames(4) As String
+    Friend Shared RRIP(4) As String
+    Friend Shared PortNames(24) As String
+    Friend Shared DeviceNames(4) As String
+    Friend Shared NumUnits As Integer
 
     Private connectedState As Boolean ' Private variable to hold the connected state
     Private utilities As Util ' Private variable to hold an ASCOM Utilities object
     Private astroUtilities As AstroUtils ' Private variable to hold an AstroUtils object to provide the Range method
     Private TL As TraceLogger ' Private variable to hold the trace logger object (creates a diagnostic log file with information that you specify)
+
+#End Region
+
+#Region "Constructor"
 
     '
     ' Constructor - Must be public for COM registration!
@@ -104,12 +108,13 @@ Public Class Switch
 
         'TODO: Implement your additional construction here
 
+        For i As Integer = 0 To 24
+            portNameDefault(i) = "Port " & (i + 1).ToString
+        Next
         TL.LogMessage("Switch", "Completed initialisation")
     End Sub
 
-    '
-    ' PUBLIC COM INTERFACE ISwitchV2 IMPLEMENTATION
-    '
+#End Region
 
 #Region "Common properties and methods"
     ''' <summary>
@@ -148,7 +153,7 @@ Public Class Switch
         CheckConnected("CommandBlind")
         Dim webclient As New System.Net.WebClient, result As String
         Dim webMutex As Mutex
-        webMutex = New Mutex(False, "SetSwitchMutex")
+        webMutex = New Mutex(False, "RRMutex")
         webMutex.WaitOne()
         Try
             result = webclient.DownloadString(Command)
@@ -162,19 +167,25 @@ Public Class Switch
 
     Public Function CommandBool(ByVal Command As String, Optional ByVal Raw As Boolean = False) As Boolean _
         Implements ISwitchV2.CommandBool
+        ' Nothing we'll use returns a boolean, not implemented
         Throw New MethodNotImplementedException("CommandBool")
     End Function
 
     Public Function CommandString(ByVal Command As String, Optional ByVal Raw As Boolean = False) As String _
         Implements ISwitchV2.CommandString
-
+        CheckConnected("CommandString")
         Dim document As New XmlDocument, reader As New XmlTextReader(Command)
+        Dim webMutex As Mutex
+        webMutex = New Mutex(False, "RRMutex")
+        webMutex.WaitOne()
         Try
             document.Load(reader)
             Return document.InnerXml.ToString()
         Catch ex As Exception
             TL.LogMessage("CommandBool", "Error Sending Command " & Command & " : " & ex.Message)
             Return ""
+        Finally
+            webMutex.ReleaseMutex()
         End Try
 
     End Function
@@ -194,46 +205,39 @@ Public Class Switch
 
                 '**********************************
                 ' We should be able to hanlde both reading the port names and verifying connectivity in one step
-                ' This presumes firmware 1.14 or later, should probably modify this to account for earlier devices
-
+                ' TODO : This presumes firmware 1.14 or later, should probably modify this to account for earlier devices
                 Dim webclient As New System.Net.WebClient, result As String, splitChar As String = vbCrLf, index As Integer
-                Try
-                    result = webclient.DownloadString("http://192.168.1.18/settings.cgi")
-                    Dim strAry() As String = result.Split(splitChar)
-                    For Each line As String In strAry
-                        line = Replace(line, vbLf, String.Empty)
-                        If line.StartsWith("RAILSTR") Then
-                            index = CInt(line.Substring(7, 1))
-                            PortNames(index) = line.Substring(9)
-                            If index = 4 Then
-                                Exit For
+                For i As Integer = 0 To NumUnits - 1
+                    Try
+                        result = webclient.DownloadString("http://" & RRIP(i) & "/settings.cgi")
+                        Dim strAry() As String = result.Split(splitChar)
+                        For Each line As String In strAry
+                            line = Replace(line, vbLf, String.Empty)
+                            If line.StartsWith("RAILSTR") Then
+                                index = CInt(line.Substring(7, 1))
+                                PortNames(index + (i * 5)) = line.Substring(9)
+                                If index = 4 Then
+                                    Exit For
+                                End If
                             End If
-                        End If
-                    Next
-                    TL.LogMessage("Connected Set", "Connected to RIGRunner at " & RRIP)
-                    connectedState = True
-                Catch ex As Exception
-                    TL.LogMessage("Connected Set", "Error connecting to RigRunner at " & RRIP)
-                End Try
-
-                '***********************************
-
-                'Dim reader As New XmlTextReader("http://" & RRIP & "/status.xml")
-                'Dim document As New XmlDocument
-
-                'Try
-                '    document.Load(reader)
-                '    connectedState = True
-                '    TL.LogMessage("Connected Set", "Connected to RigRunner at " & RRIP)
-                'Catch ex As Exception
-                '    TL.LogMessage("Connected Set", "Error connecting to RigRunner at " & RRIP)
-                'End Try
+                        Next
+                        TL.LogMessage("Connected Set", "Connected to RIGRunner at " & RRIP(i))
+                        connectedState = True
+                    Catch ex As Exception
+                        TL.LogMessage("Connected Set", "Error connecting to RigRunner at " & RRIP(i))
+                    End Try
+                Next
 
             Else
                 connectedState = False
                 WriteProfile() ' Persist device configuration values to the ASCOM Profile store
-                TL.LogMessage("Connected Set", "Disconnected from RigRunner")
+                If NumUnits > 1 Then
+                    TL.LogMessage("Connected Set", "Disconnected from RigRunners")
+                Else
+                    TL.LogMessage("Connected Set", "Disconnected from RigRunner")
+                End If
             End If
+
         End Set
     End Property
 
@@ -294,8 +298,7 @@ Public Class Switch
 
 #Region "ISwitchV2 Implementation"
 
-    ' Hardcoded right now, presuming a single RR4005i.  TODO : Make this dynamic, and able to accept > 1 rigrunner
-    Dim numSwitches As Short = 5
+    Dim numSwitches As Short = NumUnits * 5
 
     ''' <summary>
     ''' The number of switches managed by this driver
@@ -371,8 +374,9 @@ Public Class Switch
         Validate("GetSwitch", id, True)
 
         Dim xmld As New XmlDocument, result As Boolean
-        xmld.LoadXml(CommandString("http://" & RRIP & "/status.xml"))
-        result = convertInt(CInt(xmld.SelectSingleNode("/rr4005i/RAILENA" & id.ToString).InnerText))
+
+        xmld.LoadXml(CommandString("http://" & RRIP(id \ 5) & "/status.xml"))
+        result = convertInt(CInt(xmld.SelectSingleNode("/rr4005i/RAILENA" & (id Mod 5).ToString).InnerText))
         TL.LogMessage("GetSwitch", "id " & id.ToString & " : " & result.ToString)
         Return result
 
@@ -387,7 +391,7 @@ Public Class Switch
     ''' <param name="State">The required switch state</param>
     Sub SetSwitch(id As Short, state As Boolean) Implements ISwitchV2.SetSwitch
         Validate("SetSwitch", id, True)
-        CommandBlind("http://" & RRIP & "/index.htm?RAILENA" & id.ToString & "=" & convertBool(state))
+        CommandBlind("http://" & RRIP(id \ 5) & "/index.htm?RAILENA" & (id Mod 5).ToString & "=" & convertBool(state))
         TL.LogMessage("SetSwitch", "Set switch " & id.ToString & " to " & state.ToString)
     End Sub
 
@@ -470,6 +474,8 @@ Public Class Switch
 #End Region
 #End Region
 
+#Region "Validation Functions"
+
     ''' <summary>
     ''' Checks that the switch id is in range and throws an InvalidValueException if it isn't
     ''' </summary>
@@ -514,11 +520,7 @@ Public Class Switch
         End If
     End Sub
 
-
-#Region "Private properties and methods"
-    ' here are some useful properties and methods that can be used as required
-    ' to help with
-
+#End Region
 
 #Region "ASCOM Registration"
 
@@ -550,6 +552,8 @@ Public Class Switch
 
 #End Region
 
+#Region "Private properties and methods"
+
     ''' <summary>
     ''' Returns true if there is a valid connection to the driver hardware
     ''' </summary>
@@ -573,13 +577,20 @@ Public Class Switch
     ''' <summary>
     ''' Read the device configuration from the ASCOM Profile store
     ''' </summary>
+
     Friend Sub ReadProfile()
+        Dim iUnit As Integer, iPort As Integer
         Using driverProfile As New Profile()
             driverProfile.DeviceType = "Switch"
             traceState = Convert.ToBoolean(driverProfile.GetValue(driverID, traceStateProfileName, String.Empty, traceStateDefault))
-            RRIP = driverProfile.GetValue(driverID, IPProfileName, String.Empty, IPDefault)
-            For i As Integer = 0 To 4
-                PortNames(i) = driverProfile.GetValue(driverID, portNamesProfileName, i, portNameDefault(i))
+            NumUnits = driverProfile.GetValue(driverID, numberOfUnitsProfileName, String.Empty, numberOfUnitsDefault)
+            For i As Integer = 0 To NumUnits - 1
+                RRIP(i) = driverProfile.GetValue(driverID, IPProfileName, i.ToString, IPDefault)
+            Next
+            For i As Integer = 0 To (NumUnits * 5) - 1
+                iUnit = i \ 5   ' Calculate the unit number that would hold this port
+                iPort = i Mod 5 ' Calculate the port number on that unit
+                PortNames(i) = driverProfile.GetValue(driverID, portNamesProfileName, iUnit.ToString & "\" & iPort.ToString, portNameDefault(i))
             Next
         End Using
     End Sub
@@ -587,13 +598,20 @@ Public Class Switch
     ''' <summary>
     ''' Write the device configuration to the  ASCOM  Profile store
     ''' </summary>
+
     Friend Sub WriteProfile()
+        Dim iUnit As Integer, iPort As Integer
         Using driverProfile As New Profile()
             driverProfile.DeviceType = "Switch"
             driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString())
-            driverProfile.WriteValue(driverID, IPProfileName, RRIP)
-            For i As Integer = 0 To 4
-                driverProfile.WriteValue(driverID, portNamesProfileName, PortNames(i), i.ToString)
+            driverProfile.WriteValue(driverID, numberOfUnitsProfileName, NumUnits)
+            For i As Integer = 0 To NumUnits - 1
+                driverProfile.WriteValue(driverID, IPProfileName, RRIP(i), i.ToString)
+            Next
+            For i As Integer = 0 To (NumUnits * 5) - 1
+                iUnit = i \ 5   ' Calculate the unit number that would hold this port
+                iPort = i Mod 5 ' Calculate the port number on that unit
+                driverProfile.WriteValue(driverID, portNamesProfileName, PortNames(i), iUnit.ToString & "\" & iPort.ToString)
             Next
         End Using
 

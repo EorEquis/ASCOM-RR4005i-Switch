@@ -8,13 +8,13 @@ Public Class SetupDialogForm
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click ' OK button event handler
         ' Persist new values of user settings to the ASCOM profile
-        'Dim tb As TextBox
+        Dim tb As TextBox
         Switch.traceState = chkTrace.Checked
-        Switch.RRIP = txtIP.Text
-        'For i As Integer = 0 To 4
-        '    tb = Me.Controls("txtPortName" & i.ToString)
-        '    Switch.PortNames(i) = tb.Text
-        'Next
+        Switch.NumUnits = ddNumUnits.SelectedItem
+        For i As Integer = 0 To Switch.NumUnits - 1
+            tb = Me.Controls("txtIP" & i.ToString)
+            Switch.RRIP(i) = tb.Text
+        Next
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -44,15 +44,29 @@ Public Class SetupDialogForm
     End Sub
 
     Private Sub InitUI()
-        'Dim tb As TextBox
+        Dim tb As TextBox, lb As Label
         chkTrace.Checked = Switch.traceState
-        txtIP.Text = Switch.RRIP
+        ddNumUnits.SelectedItem = Switch.NumUnits.ToString
+        For i As Integer = 0 To Switch.NumUnits - 1
+            tb = Me.Controls("txtIP" & i.ToString)
+            lb = Me.Controls("lblIP" & i.ToString)
+            tb.Visible = True
+            tb.Text = Switch.RRIP(i)
+            lb.Visible = True
+        Next
+        For i As Integer = Switch.NumUnits To 4
+            tb = Me.Controls("txtIP" & i.ToString)
+            lb = Me.Controls("lblIP" & i.ToString)
+            tb.Visible = False
+            lb.Visible = False
 
-        'For i As Integer = 0 To 4
-        '    tb = Me.Controls("txtPortName" & i.ToString)
-        '    tb.Text = Switch.PortNames(i)
-        'Next
+        Next
     End Sub
 
+
+    Private Sub ddNumUnits_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddNumUnits.SelectedIndexChanged
+        Switch.NumUnits = CInt(ddNumUnits.SelectedItem)
+        InitUI()
+    End Sub
 
 End Class
