@@ -22,6 +22,8 @@ Partial Class SetupDialogForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SetupDialogForm))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.OK_Button = New System.Windows.Forms.Button()
         Me.Cancel_Button = New System.Windows.Forms.Button()
@@ -43,6 +45,7 @@ Partial Class SetupDialogForm
         Me.cbFetchNames = New System.Windows.Forms.CheckBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -109,6 +112,7 @@ Partial Class SetupDialogForm
         Me.chkTrace.Name = "chkTrace"
         Me.chkTrace.Size = New System.Drawing.Size(15, 14)
         Me.chkTrace.TabIndex = 60
+        Me.ToolTip1.SetToolTip(Me.chkTrace, "Enable ASCOM trace logging")
         Me.chkTrace.UseVisualStyleBackColor = True
         '
         'txtIP0
@@ -117,6 +121,7 @@ Partial Class SetupDialogForm
         Me.txtIP0.Name = "txtIP0"
         Me.txtIP0.Size = New System.Drawing.Size(118, 20)
         Me.txtIP0.TabIndex = 10
+        Me.ToolTip1.SetToolTip(Me.txtIP0, "Enter the unit's IP address on your network")
         '
         'lblIP0
         '
@@ -126,6 +131,7 @@ Partial Class SetupDialogForm
         Me.lblIP0.Size = New System.Drawing.Size(89, 13)
         Me.lblIP0.TabIndex = 11
         Me.lblIP0.Text = "Unit 1 IP Address"
+        Me.ToolTip1.SetToolTip(Me.lblIP0, "Enter the unit's IP address on your network")
         '
         'ddNumUnits
         '
@@ -135,6 +141,7 @@ Partial Class SetupDialogForm
         Me.ddNumUnits.Name = "ddNumUnits"
         Me.ddNumUnits.Size = New System.Drawing.Size(58, 21)
         Me.ddNumUnits.TabIndex = 1
+        Me.ToolTip1.SetToolTip(Me.ddNumUnits, "Select the number of RIGRunner Units")
         '
         'Label3
         '
@@ -144,6 +151,7 @@ Partial Class SetupDialogForm
         Me.Label3.Size = New System.Drawing.Size(83, 13)
         Me.Label3.TabIndex = 62
         Me.Label3.Text = "Number of Units"
+        Me.ToolTip1.SetToolTip(Me.Label3, "Select the number of RIGRunner Units")
         '
         'lblIP1
         '
@@ -153,6 +161,7 @@ Partial Class SetupDialogForm
         Me.lblIP1.Size = New System.Drawing.Size(89, 13)
         Me.lblIP1.TabIndex = 64
         Me.lblIP1.Text = "Unit 2 IP Address"
+        Me.ToolTip1.SetToolTip(Me.lblIP1, "Enter the unit's IP address on your network")
         '
         'txtIP1
         '
@@ -160,6 +169,7 @@ Partial Class SetupDialogForm
         Me.txtIP1.Name = "txtIP1"
         Me.txtIP1.Size = New System.Drawing.Size(118, 20)
         Me.txtIP1.TabIndex = 20
+        Me.ToolTip1.SetToolTip(Me.txtIP1, "Enter the unit's IP address on your network")
         '
         'lblIP2
         '
@@ -169,6 +179,7 @@ Partial Class SetupDialogForm
         Me.lblIP2.Size = New System.Drawing.Size(89, 13)
         Me.lblIP2.TabIndex = 66
         Me.lblIP2.Text = "Unit 3 IP Address"
+        Me.ToolTip1.SetToolTip(Me.lblIP2, "Enter the unit's IP address on your network")
         '
         'txtIP2
         '
@@ -176,6 +187,7 @@ Partial Class SetupDialogForm
         Me.txtIP2.Name = "txtIP2"
         Me.txtIP2.Size = New System.Drawing.Size(118, 20)
         Me.txtIP2.TabIndex = 30
+        Me.ToolTip1.SetToolTip(Me.txtIP2, "Enter the unit's IP address on your network")
         '
         'lblIP3
         '
@@ -185,6 +197,7 @@ Partial Class SetupDialogForm
         Me.lblIP3.Size = New System.Drawing.Size(89, 13)
         Me.lblIP3.TabIndex = 68
         Me.lblIP3.Text = "Unit 4 IP Address"
+        Me.ToolTip1.SetToolTip(Me.lblIP3, "Enter the unit's IP address on your network")
         '
         'txtIP3
         '
@@ -192,6 +205,7 @@ Partial Class SetupDialogForm
         Me.txtIP3.Name = "txtIP3"
         Me.txtIP3.Size = New System.Drawing.Size(118, 20)
         Me.txtIP3.TabIndex = 40
+        Me.ToolTip1.SetToolTip(Me.txtIP3, "Enter the unit's IP address on your network")
         '
         'lblIP4
         '
@@ -201,6 +215,7 @@ Partial Class SetupDialogForm
         Me.lblIP4.Size = New System.Drawing.Size(89, 13)
         Me.lblIP4.TabIndex = 70
         Me.lblIP4.Text = "Unit 5 IP Address"
+        Me.ToolTip1.SetToolTip(Me.lblIP4, "Enter the unit's IP address on your network")
         '
         'txtIP4
         '
@@ -208,6 +223,7 @@ Partial Class SetupDialogForm
         Me.txtIP4.Name = "txtIP4"
         Me.txtIP4.Size = New System.Drawing.Size(118, 20)
         Me.txtIP4.TabIndex = 50
+        Me.ToolTip1.SetToolTip(Me.txtIP4, "Enter the unit's IP address on your network")
         '
         'cbFetchNames
         '
@@ -216,6 +232,7 @@ Partial Class SetupDialogForm
         Me.cbFetchNames.Name = "cbFetchNames"
         Me.cbFetchNames.Size = New System.Drawing.Size(15, 14)
         Me.cbFetchNames.TabIndex = 71
+        Me.ToolTip1.SetToolTip(Me.cbFetchNames, "The driver can fetch your assigned portnames")
         Me.cbFetchNames.UseVisualStyleBackColor = True
         '
         'Label2
@@ -226,6 +243,9 @@ Partial Class SetupDialogForm
         Me.Label2.Size = New System.Drawing.Size(146, 13)
         Me.Label2.TabIndex = 72
         Me.Label2.Text = "Fetch port names on connect"
+        Me.ToolTip1.SetToolTip(Me.Label2, "The driver can fetch your assigned portnames" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "from the RIGRunner.  Do you want it" & _
+        " to" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "do this when you connect?" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Otherwise, the driver will use the last known " & _
+        "port" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "names once connected.")
         '
         'Label4
         '
@@ -235,6 +255,7 @@ Partial Class SetupDialogForm
         Me.Label4.Size = New System.Drawing.Size(52, 13)
         Me.Label4.TabIndex = 73
         Me.Label4.Text = "Trace On"
+        Me.ToolTip1.SetToolTip(Me.Label4, "Enable ASCOM trace logging")
         '
         'SetupDialogForm
         '
@@ -263,12 +284,13 @@ Partial Class SetupDialogForm
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "SetupDialogForm"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "DeviceName Setup"
+        Me.Text = "RR4005i Switch Setup"
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -296,5 +318,6 @@ Partial Class SetupDialogForm
     Friend WithEvents cbFetchNames As System.Windows.Forms.CheckBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 
 End Class

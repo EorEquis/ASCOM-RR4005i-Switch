@@ -1,7 +1,5 @@
 
-'tabs=4
 ' --------------------------------------------------------------------------------
-' TODO fill in this information for your driver, then remove this line!
 '
 ' ASCOM Switch driver for RR4005i
 '
@@ -55,9 +53,7 @@ Public Class Switch
 
 #Region "Variables"
 
-    '
     ' Driver ID and descriptive string that shows in the Chooser
-    '
     Friend Shared driverID As String = "ASCOM.RR4005i.Switch"
     Private Shared driverDescription As String = "RR4005i Switch"
 
@@ -98,9 +94,7 @@ Public Class Switch
 
 #Region "Constructor"
 
-    '
     ' Constructor - Must be public for COM registration!
-    '
     Public Sub New()
 
         ReadProfile() ' Read device configuration from the ASCOM Profile store
@@ -112,8 +106,7 @@ Public Class Switch
         utilities = New Util() ' Initialise util object
         astroUtilities = New AstroUtils 'Initialise new astro utiliites object
 
-        'TODO: Implement your additional construction here
-
+        ' Basically just laziness.  I didn't want to type all 25 default port names.
         For i As Integer = 0 To 24
             portNameDefault(i) = "Port " & (i + 1).ToString
         Next
@@ -123,16 +116,6 @@ Public Class Switch
 #End Region
 
 #Region "Common properties and methods"
-
-    ' To know if we should fetch the names on connect or not.  They might be available in the profile.
-    Public Property FetchNames() As Boolean
-        Get
-            Return bFetchNames
-        End Get
-        Set(value As Boolean)
-            bFetchNames = value
-        End Set
-    End Property
 
     ''' <summary>
     ''' Displays the Setup Dialog form.
@@ -169,7 +152,7 @@ Public Class Switch
     Public Sub CommandBlind(ByVal Command As String, Optional ByVal Raw As Boolean = False) Implements ISwitchV2.CommandBlind
         CheckConnected("CommandBlind")
         Dim webclient As New System.Net.WebClient, result As String
-        Dim webMutex As Mutex
+        Dim webMutex As Mutex   ' Very simple multithreading.  Don't need anything complicated, since there's no serial comms w/ the RR4005i
         webMutex = New Mutex(False, "RRMutex")
         webMutex.WaitOne()
         Try
@@ -179,7 +162,6 @@ Public Class Switch
         Finally
             webMutex.ReleaseMutex()
         End Try
-
     End Sub
 
     Public Function CommandBool(ByVal Command As String, Optional ByVal Raw As Boolean = False) As Boolean _
@@ -192,7 +174,7 @@ Public Class Switch
         Implements ISwitchV2.CommandString
         CheckConnected("CommandString")
         Dim document As New XmlDocument, reader As New XmlTextReader(Command)
-        Dim webMutex As Mutex
+        Dim webMutex As Mutex   ' Very simple multithreading.  Don't need anything complicated, since there's no serial comms w/ the RR4005i
         webMutex = New Mutex(False, "RRMutex")
         webMutex.WaitOne()
         Try
@@ -204,7 +186,6 @@ Public Class Switch
         Finally
             webMutex.ReleaseMutex()
         End Try
-
     End Function
 
     Public Property Connected() As Boolean Implements ISwitchV2.Connected
@@ -221,8 +202,9 @@ Public Class Switch
             If value Then
 
                 '**********************************
-                ' We should be able to hanlde both reading the port names and verifying connectivity in one step
+                ' We should be able to handle both reading the port names and verifying connectivity in one step
                 ' TODO : This presumes firmware 1.14 or later, should probably modify this to account for earlier devices
+                '**********************************
                 Dim webclient As New System.Net.WebClient, result As String, splitChar As String = vbCrLf, index As Integer
                 For i As Integer = 0 To NumUnits - 1
                     Try
@@ -256,7 +238,6 @@ Public Class Switch
                     TL.LogMessage("Connected Set", "Disconnected from RigRunner")
                 End If
             End If
-
         End Set
     End Property
 
@@ -272,7 +253,6 @@ Public Class Switch
     Public ReadOnly Property DriverInfo As String Implements ISwitchV2.DriverInfo
         Get
             Dim m_version As Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
-            ' TODO customise this driver description
             Dim s_driverInfo As String = "ASCOM Switch Driver for West Mountain Radio's RIGRunner 4005i. Version: " + m_version.Major.ToString() + "." + m_version.Minor.ToString()
             TL.LogMessage("DriverInfo Get", s_driverInfo)
             Return s_driverInfo
@@ -316,7 +296,6 @@ Public Class Switch
 #End Region
 
 #Region "ISwitchV2 Implementation"
-
 
     ''' <summary>
     ''' The number of switches managed by this driver
@@ -397,7 +376,6 @@ Public Class Switch
         result = convertInt(CInt(xmld.SelectSingleNode("/rr4005i/RAILENA" & (id Mod 5).ToString).InnerText))
         TL.LogMessage("GetSwitch", "id " & id.ToString & " : " & result.ToString)
         Return result
-
     End Function
 
     ''' <summary>
@@ -412,7 +390,6 @@ Public Class Switch
         CommandBlind("http://" & RRIP(id \ 5) & "/index.htm?RAILENA" & (id Mod 5).ToString & "=" & convertBool(state))
         TL.LogMessage("SetSwitch", "Set switch " & id.ToString & " to " & state.ToString)
     End Sub
-
 #End Region
 
 #Region "Analogue members"
@@ -490,6 +467,7 @@ Public Class Switch
     End Sub
 
 #End Region
+
 #End Region
 
 #Region "Validation Functions"
@@ -577,7 +555,7 @@ Public Class Switch
     ''' </summary>
     Private ReadOnly Property IsConnected As Boolean
         Get
-            ' TODO check that the driver hardware connection exists and is connected to the hardware
+            ' connectedState is set in the Connect method
             Return connectedState
         End Get
     End Property
@@ -595,7 +573,6 @@ Public Class Switch
     ''' <summary>
     ''' Read the device configuration from the ASCOM Profile store
     ''' </summary>
-
     Friend Sub ReadProfile()
         Dim iUnit As Integer, iPort As Integer
         Using driverProfile As New Profile()
@@ -618,7 +595,6 @@ Public Class Switch
     ''' <summary>
     ''' Write the device configuration to the  ASCOM  Profile store
     ''' </summary>
-
     Friend Sub WriteProfile()
         Dim iUnit As Integer, iPort As Integer
         Using driverProfile As New Profile()
@@ -637,15 +613,13 @@ Public Class Switch
                 driverProfile.WriteValue(driverID, portNamesProfileName, PortNames(i), iUnit.ToString & "\" & iPort.ToString)
             Next
         End Using
-
     End Sub
 
 #End Region
 
 #Region "My Helper Functions"
 
-
-    ' There's probably better ways to do this, but this is simple and readable and, well, I'm stupid and lazy, so here we are.
+    ' There are probably better ways to do these, but this is simple and readable and, well, I'm stupid and lazy, so here we are.
 
     Friend Shared Function convertBool(value As Boolean) As Integer
         If value Then
