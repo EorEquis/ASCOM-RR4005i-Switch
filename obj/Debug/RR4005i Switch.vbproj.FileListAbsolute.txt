@@ -1,9 +1,0 @@
-D:\Dev\Git\RR4005i Switch\bin\Debug\RR4005i Switch.dll.config
-D:\Dev\Git\RR4005i Switch\bin\Debug\RR4005i Switch.dll
-D:\Dev\Git\RR4005i Switch\bin\Debug\RR4005i Switch.pdb
-D:\Dev\Git\RR4005i Switch\bin\Debug\RR4005i Switch.tlb
-D:\Dev\Git\RR4005i Switch\obj\Debug\ASCOM.RR4005i.Resources.resources
-D:\Dev\Git\RR4005i Switch\obj\Debug\ASCOM.RR4005i.SetupDialogForm.resources
-D:\Dev\Git\RR4005i Switch\obj\Debug\RR4005i Switch.vbproj.GenerateResource.Cache
-D:\Dev\Git\RR4005i Switch\obj\Debug\RR4005i Switch.dll
-D:\Dev\Git\RR4005i Switch\obj\Debug\RR4005i Switch.pdb
