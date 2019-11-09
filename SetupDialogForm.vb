@@ -48,6 +48,7 @@ Public Class SetupDialogForm
         chkTrace.Checked = Switch.traceState
         ddNumUnits.SelectedItem = Switch.NumUnits.ToString
         cbFetchNames.Checked = Switch.bFetchNames
+        ' Enable the IP Address text boxes, based on the number of units.
         For i As Integer = 0 To Switch.NumUnits - 1
             tb = Me.Controls("txtIP" & i.ToString)
             lb = Me.Controls("lblIP" & i.ToString)
@@ -55,22 +56,24 @@ Public Class SetupDialogForm
             tb.Text = Switch.RRIP(i)
             lb.Visible = True
         Next
+        ' Disable the remaining IP Address textboxes based on the number of units
         For i As Integer = Switch.NumUnits To 4
             tb = Me.Controls("txtIP" & i.ToString)
             lb = Me.Controls("lblIP" & i.ToString)
             tb.Visible = False
             lb.Visible = False
-
         Next
     End Sub
 
-
     Private Sub ddNumUnits_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddNumUnits.SelectedIndexChanged
+        ' Refresh the UI with the correct number of units
         Switch.NumUnits = CInt(ddNumUnits.SelectedItem)
         InitUI()
     End Sub
 
     Private Sub cbFetchNames_CheckedChanged(sender As Object, e As EventArgs) Handles cbFetchNames.CheckedChanged
+        ' The driver can fetch port names from the RIGRunner.  Should we do this on connect?
         Switch.bFetchNames = cbFetchNames.Checked
     End Sub
+
 End Class
