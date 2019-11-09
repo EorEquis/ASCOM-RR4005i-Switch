@@ -47,6 +47,7 @@ Public Class SetupDialogForm
         Dim tb As TextBox, lb As Label
         chkTrace.Checked = Switch.traceState
         ddNumUnits.SelectedItem = Switch.NumUnits.ToString
+        cbFetchNames.Checked = Switch.bFetchNames
         For i As Integer = 0 To Switch.NumUnits - 1
             tb = Me.Controls("txtIP" & i.ToString)
             lb = Me.Controls("lblIP" & i.ToString)
@@ -69,4 +70,7 @@ Public Class SetupDialogForm
         InitUI()
     End Sub
 
+    Private Sub cbFetchNames_CheckedChanged(sender As Object, e As EventArgs) Handles cbFetchNames.CheckedChanged
+        Switch.bFetchNames = cbFetchNames.Checked
+    End Sub
 End Class

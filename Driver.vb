@@ -74,6 +74,10 @@ Public Class Switch
     Friend Shared deviceNameDefault As String = "RR4005i"
     Friend Shared numberOfUnitsProfileName As String = "Number Of Units"
     Friend Shared numberOfUnitsDefault As String = "1"
+    Friend Shared maxSwitchesProfileName As String = "Max Switches"
+    Friend Shared maxSwitchesDefault As String = "5"
+    Friend Shared fetchNamesProfileName As String = "Fetch Port Names"
+    Friend Shared fetchNamesDefault As String = "True"
 
     ' Variables to hold the currrent device configuration
 
@@ -82,6 +86,8 @@ Public Class Switch
     Friend Shared PortNames(24) As String
     Friend Shared DeviceNames(4) As String
     Friend Shared NumUnits As Integer
+    Friend Shared bFetchNames As Boolean
+    Friend Shared numSwitches As Integer
 
     Private connectedState As Boolean ' Private variable to hold the connected state
     Private utilities As Util ' Private variable to hold an ASCOM Utilities object
@@ -117,6 +123,17 @@ Public Class Switch
 #End Region
 
 #Region "Common properties and methods"
+
+    ' To know if we should fetch the names on connect or not.  They might be available in the profile.
+    Public Property FetchNames() As Boolean
+        Get
+            Return bFetchNames
+        End Get
+        Set(value As Boolean)
+            bFetchNames = value
+        End Set
+    End Property
+
     ''' <summary>
     ''' Displays the Setup Dialog form.
     ''' If the user clicks the OK button to dismiss the form, then
@@ -210,17 +227,19 @@ Public Class Switch
                 For i As Integer = 0 To NumUnits - 1
                     Try
                         result = webclient.DownloadString("http://" & RRIP(i) & "/settings.cgi")
-                        Dim strAry() As String = result.Split(splitChar)
-                        For Each line As String In strAry
-                            line = Replace(line, vbLf, String.Empty)
-                            If line.StartsWith("RAILSTR") Then
-                                index = CInt(line.Substring(7, 1))
-                                PortNames(index + (i * 5)) = line.Substring(9)
-                                If index = 4 Then
-                                    Exit For
+                        If bFetchNames Then
+                            Dim strAry() As String = result.Split(splitChar)
+                            For Each line As String In strAry
+                                line = Replace(line, vbLf, String.Empty)
+                                If line.StartsWith("RAILSTR") Then
+                                    index = CInt(line.Substring(7, 1))
+                                    PortNames(index + (i * 5)) = line.Substring(9)
+                                    If index = 4 Then
+                                        Exit For
+                                    End If
                                 End If
-                            End If
-                        Next
+                            Next
+                        End If
                         TL.LogMessage("Connected Set", "Connected to RIGRunner at " & RRIP(i))
                         connectedState = True
                     Catch ex As Exception
@@ -298,7 +317,6 @@ Public Class Switch
 
 #Region "ISwitchV2 Implementation"
 
-    Dim numSwitches As Short = NumUnits * 5
 
     ''' <summary>
     ''' The number of switches managed by this driver
@@ -584,10 +602,12 @@ Public Class Switch
             driverProfile.DeviceType = "Switch"
             traceState = Convert.ToBoolean(driverProfile.GetValue(driverID, traceStateProfileName, String.Empty, traceStateDefault))
             NumUnits = driverProfile.GetValue(driverID, numberOfUnitsProfileName, String.Empty, numberOfUnitsDefault)
+            numSwitches = driverProfile.GetValue(driverID, maxSwitchesProfileName, String.Empty, maxSwitchesDefault)
+            bFetchNames = driverProfile.GetValue(driverID, fetchNamesProfileName, String.Empty, fetchNamesDefault)
             For i As Integer = 0 To NumUnits - 1
                 RRIP(i) = driverProfile.GetValue(driverID, IPProfileName, i.ToString, IPDefault)
             Next
-            For i As Integer = 0 To (NumUnits * 5) - 1
+            For i As Integer = 0 To numSwitches - 1
                 iUnit = i \ 5   ' Calculate the unit number that would hold this port
                 iPort = i Mod 5 ' Calculate the port number on that unit
                 PortNames(i) = driverProfile.GetValue(driverID, portNamesProfileName, iUnit.ToString & "\" & iPort.ToString, portNameDefault(i))
@@ -605,6 +625,9 @@ Public Class Switch
             driverProfile.DeviceType = "Switch"
             driverProfile.WriteValue(driverID, traceStateProfileName, traceState.ToString())
             driverProfile.WriteValue(driverID, numberOfUnitsProfileName, NumUnits)
+            driverProfile.WriteValue(driverID, maxSwitchesProfileName, NumUnits * 5)
+            driverProfile.WriteValue(driverID, fetchNamesProfileName, bFetchNames.ToString)
+
             For i As Integer = 0 To NumUnits - 1
                 driverProfile.WriteValue(driverID, IPProfileName, RRIP(i), i.ToString)
             Next
