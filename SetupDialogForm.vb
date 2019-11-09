@@ -69,4 +69,7 @@ Public Class SetupDialogForm
         InitUI()
     End Sub
 
+    Private Sub cbFetchNames_CheckedChanged(sender As Object, e As EventArgs) Handles cbFetchNames.CheckedChanged
+        Switch.bFetchNames = cbFetchNames.Checked
+    End Sub
 End Class

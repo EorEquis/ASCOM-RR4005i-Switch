@@ -40,6 +40,9 @@ Partial Class SetupDialogForm
         Me.txtIP3 = New System.Windows.Forms.TextBox()
         Me.lblIP4 = New System.Windows.Forms.Label()
         Me.txtIP4 = New System.Windows.Forms.TextBox()
+        Me.cbFetchNames = New System.Windows.Forms.CheckBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -52,7 +55,7 @@ Partial Class SetupDialogForm
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(243, 167)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(265, 167)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -92,7 +95,7 @@ Partial Class SetupDialogForm
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PictureBox1.Image = Global.ASCOM.RR4005i.My.Resources.Resources.ASCOM
-        Me.PictureBox1.Location = New System.Drawing.Point(340, 12)
+        Me.PictureBox1.Location = New System.Drawing.Point(362, 12)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(48, 56)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
@@ -102,11 +105,10 @@ Partial Class SetupDialogForm
         'chkTrace
         '
         Me.chkTrace.AutoSize = True
-        Me.chkTrace.Location = New System.Drawing.Point(320, 144)
+        Me.chkTrace.Location = New System.Drawing.Point(393, 145)
         Me.chkTrace.Name = "chkTrace"
-        Me.chkTrace.Size = New System.Drawing.Size(69, 17)
+        Me.chkTrace.Size = New System.Drawing.Size(15, 14)
         Me.chkTrace.TabIndex = 60
-        Me.chkTrace.Text = "Trace on"
         Me.chkTrace.UseVisualStyleBackColor = True
         '
         'txtIP0
@@ -207,13 +209,43 @@ Partial Class SetupDialogForm
         Me.txtIP4.Size = New System.Drawing.Size(118, 20)
         Me.txtIP4.TabIndex = 50
         '
+        'cbFetchNames
+        '
+        Me.cbFetchNames.AutoSize = True
+        Me.cbFetchNames.Location = New System.Drawing.Point(394, 125)
+        Me.cbFetchNames.Name = "cbFetchNames"
+        Me.cbFetchNames.Size = New System.Drawing.Size(15, 14)
+        Me.cbFetchNames.TabIndex = 71
+        Me.cbFetchNames.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(242, 126)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(146, 13)
+        Me.Label2.TabIndex = 72
+        Me.Label2.Text = "Fetch port names on connect"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(336, 145)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(52, 13)
+        Me.Label4.TabIndex = 73
+        Me.Label4.Text = "Trace On"
+        '
         'SetupDialogForm
         '
         Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(401, 208)
+        Me.ClientSize = New System.Drawing.Size(423, 208)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.cbFetchNames)
         Me.Controls.Add(Me.lblIP4)
         Me.Controls.Add(Me.txtIP4)
         Me.Controls.Add(Me.lblIP3)
@@ -261,5 +293,8 @@ Partial Class SetupDialogForm
     Friend WithEvents txtIP3 As System.Windows.Forms.TextBox
     Friend WithEvents lblIP4 As System.Windows.Forms.Label
     Friend WithEvents txtIP4 As System.Windows.Forms.TextBox
+    Friend WithEvents cbFetchNames As System.Windows.Forms.CheckBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
 
 End Class
