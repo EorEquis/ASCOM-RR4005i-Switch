@@ -452,8 +452,13 @@ Public Class Switch
     ''' <param name="id"></param>
     ''' <returns></returns>
     Function GetSwitchValue(id As Short) As Double Implements ISwitchV2.GetSwitchValue
-        TL.LogMessage("GetSwitchValue", "Get switch value " & id.ToString)
-        Validate("GetSwitchValue", id, True)
+
+        Validate("GetSwitchValue", id, False)
+        TL.LogMessage("GetSwitchValue", "Not Implemented")
+        Throw New ASCOM.MethodNotImplementedException("GetSwitchValue")
+
+        'TL.LogMessage("GetSwitchValue", "Get switch value " & id.ToString)
+        'Validate("GetSwitchValue", id, True)
 
     End Function
 
@@ -466,11 +471,19 @@ Public Class Switch
     ''' <param name="id"></param>
     ''' <param name="value"></param>
     Sub SetSwitchValue(id As Short, value As Double) Implements ISwitchV2.SetSwitchValue
-        TL.LogMessage("SetSwitchValue", "Set switch value " & id.ToString)
-        'Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
-        Validate("SetSwitchValue", id, True)
-        'CommandBlind("http://" & RRIP(id \ 5) & "/index.htm?RAILENA" & (id Mod 5).ToString & "=" & convertBool(convertInt(CInt(value))))
-        'TL.LogMessage("SetSwitchValue", "Set switch value " & id.ToString & " to " & value.ToString)
+
+        Validate("SetSwitchValue", id, value)
+        If value < MinSwitchValue(id) Or value > MaxSwitchValue(id) Then
+            Throw New InvalidValueException("", value.ToString(), String.Format("{0} to {1}", MinSwitchValue(id), MaxSwitchValue(id)))
+        End If
+        '        TL.LogMessage("SetSwitchValue", "Not Implemented")
+        '        Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
+
+        'TL.LogMessage("SetSwitchValue", "Set switch value " & id.ToString)
+        ''Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
+        'Validate("SetSwitchValue", id, True)
+        ''CommandBlind("http://" & RRIP(id \ 5) & "/index.htm?RAILENA" & (id Mod 5).ToString & "=" & convertBool(convertInt(CInt(value))))
+        ''TL.LogMessage("SetSwitchValue", "Set switch value " & id.ToString & " to " & value.ToString)
 
     End Sub
 
@@ -515,7 +528,7 @@ Public Class Switch
     ''' <param name="id">The id.</param>
     ''' <param name="value">The value.</param>
     Private Sub Validate(message As String, id As Short, value As Double)
-        Validate(message, id, False)
+        Validate(message, id, True)
         Dim min = MinSwitchValue(id)
         Dim max = MaxSwitchValue(id)
         If (value < min Or value > max) Then
