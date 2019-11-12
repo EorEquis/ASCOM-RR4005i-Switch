@@ -439,18 +439,22 @@ Public Class Switch
     ''' boolean switches must throw a MethodNotImplementedException
     ''' 
     ''' 
-    ''' Ok, this is fucking brilliant.  The ASCOM documentation at https://ascom-standards.org/Help/Developer/html/M_ASCOM_DeviceInterface_ISwitchV2_GetSwitchValue.htm 
+    ''' Ok, this is a little confusing.  
+    ''' The ASCOM documentation at https://ascom-standards.org/Help/Developer/html/M_ASCOM_DeviceInterface_ISwitchV2_GetSwitchValue.htm 
     ''' says specifically : "Must be implemented, must not throw a MethodNotImplementedException."
     ''' But the template says "boolean switches must throw a MethodNotImplementedException"
-    ''' WTF
+    ''' Turns out what's expected is that the Validation function must throw the methodnotimplementedexception
+    ''' when the value given is greater than 1.  Throwing it here results in a strange error during conform :
+    ''' 
+    ''' ISSUE    Received a MethodNotImplementedException instead of a PropertyNotImplementedException
     ''' 
     ''' </summary>
     ''' <param name="id"></param>
     ''' <returns></returns>
     Function GetSwitchValue(id As Short) As Double Implements ISwitchV2.GetSwitchValue
-        ' Ok, we're going with the template, and not implementing.  We'll see what breaks.
-        TL.LogMessage("GetSwitchValue", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("GetSwitchValue")
+        TL.LogMessage("GetSwitchValue", "Get switch value " & id.ToString)
+        Validate("GetSwitchValue", id, True)
+
     End Function
 
     ''' <summary>
@@ -462,8 +466,12 @@ Public Class Switch
     ''' <param name="id"></param>
     ''' <param name="value"></param>
     Sub SetSwitchValue(id As Short, value As Double) Implements ISwitchV2.SetSwitchValue
-        TL.LogMessage("SetSwitchValue", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
+        TL.LogMessage("SetSwitchValue", "Set switch value " & id.ToString)
+        'Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
+        Validate("SetSwitchValue", id, True)
+        'CommandBlind("http://" & RRIP(id \ 5) & "/index.htm?RAILENA" & (id Mod 5).ToString & "=" & convertBool(convertInt(CInt(value))))
+        'TL.LogMessage("SetSwitchValue", "Set switch value " & id.ToString & " to " & value.ToString)
+
     End Sub
 
 #End Region
