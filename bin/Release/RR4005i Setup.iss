@@ -5,8 +5,8 @@
 [Setup]
 AppID={{0b93bb91-2f50-4bac-8cc6-81f1667b02f0}
 AppName=ASCOM RR4005i Switch Driver
-AppVerName=ASCOM RR4005i Switch Driver 0.2.46
-AppVersion=0.2.46
+AppVerName=ASCOM RR4005i Switch Driver 0.2.47
+AppVersion=0.2.47
 AppPublisher=Eor Equis <eorequis@tristarobservatory.space>
 AppPublisherURL=mailto:eorequis@tristarobservatory.space
 AppSupportURL=http://tech.groups.yahoo.com/group/ASCOM-Talk/

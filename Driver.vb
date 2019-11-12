@@ -60,7 +60,6 @@ Public Class Switch
     'Constants used for Profile persistence
 
     Friend Shared traceStateProfileName As String = "Trace Level"
-    Friend Shared comPortDefault As String = "COM1"
     Friend Shared traceStateDefault As String = "False"
     Friend Shared IPProfileName As String = "IP Address"
     Friend Shared IPDefault As String = "0.0.0.0"
@@ -393,9 +392,6 @@ Public Class Switch
 #End Region
 
 #Region "Analogue members"
-    ' Forcing these to be implemented is silly, but here we are.  ASCOM requires these to not throw a MethodNotImplementedException
-    ' so we'll just hardcode 0.0 and 1.0 values, regardless of the ID, per the documentation
-
     ''' <summary>
     ''' returns the maximum analogue value for this switch
     ''' boolean switches must return 1.0
@@ -405,7 +401,7 @@ Public Class Switch
     Function MaxSwitchValue(id As Short) As Double Implements ISwitchV2.MaxSwitchValue
         Validate("MaxSwitchValue", id)
         TL.LogMessage("MaxSwitchValue", "1.0")
-        Return 1.0
+        Return 1.0  ' All RR4005i switches are boolean
     End Function
 
     ''' <summary>
@@ -417,7 +413,7 @@ Public Class Switch
     Function MinSwitchValue(id As Short) As Double Implements ISwitchV2.MinSwitchValue
         Validate("MinSwitchValue", id)
         TL.LogMessage("MinSwitchValue", "0.0")
-        Return 0.0
+        Return 0.0  ' All RR4005i switches are boolean
     End Function
 
     ''' <summary>
@@ -431,35 +427,19 @@ Public Class Switch
     Function SwitchStep(id As Short) As Double Implements ISwitchV2.SwitchStep
         Validate("SwitchStep", id)
         TL.LogMessage("SwitchStep", "1.0")
-        Return 1.0
+        Return 1.0  ' All RR4005i switches are boolean
     End Function
 
     ''' <summary>
     ''' returns the analogue switch value for switch id
     ''' boolean switches must throw a MethodNotImplementedException
-    ''' 
-    ''' 
-    ''' Ok, this is a little confusing.  
-    ''' The ASCOM documentation at https://ascom-standards.org/Help/Developer/html/M_ASCOM_DeviceInterface_ISwitchV2_GetSwitchValue.htm 
-    ''' says specifically : "Must be implemented, must not throw a MethodNotImplementedException."
-    ''' But the template says "boolean switches must throw a MethodNotImplementedException"
-    ''' Turns out what's expected is that the Validation function must throw the methodnotimplementedexception
-    ''' when the value given is greater than 1.  Throwing it here results in a strange error during conform :
-    ''' 
-    ''' ISSUE    Received a MethodNotImplementedException instead of a PropertyNotImplementedException
-    ''' 
     ''' </summary>
     ''' <param name="id"></param>
     ''' <returns></returns>
     Function GetSwitchValue(id As Short) As Double Implements ISwitchV2.GetSwitchValue
-
         Validate("GetSwitchValue", id, False)
         TL.LogMessage("GetSwitchValue", "Not Implemented")
         Throw New ASCOM.MethodNotImplementedException("GetSwitchValue")
-
-        'TL.LogMessage("GetSwitchValue", "Get switch value " & id.ToString)
-        'Validate("GetSwitchValue", id, True)
-
     End Function
 
     ''' <summary>
@@ -471,20 +451,12 @@ Public Class Switch
     ''' <param name="id"></param>
     ''' <param name="value"></param>
     Sub SetSwitchValue(id As Short, value As Double) Implements ISwitchV2.SetSwitchValue
-
         Validate("SetSwitchValue", id, value)
         If value < MinSwitchValue(id) Or value > MaxSwitchValue(id) Then
             Throw New InvalidValueException("", value.ToString(), String.Format("{0} to {1}", MinSwitchValue(id), MaxSwitchValue(id)))
         End If
-        '        TL.LogMessage("SetSwitchValue", "Not Implemented")
-        '        Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
-
-        'TL.LogMessage("SetSwitchValue", "Set switch value " & id.ToString)
-        ''Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
-        'Validate("SetSwitchValue", id, True)
-        ''CommandBlind("http://" & RRIP(id \ 5) & "/index.htm?RAILENA" & (id Mod 5).ToString & "=" & convertBool(convertInt(CInt(value))))
-        ''TL.LogMessage("SetSwitchValue", "Set switch value " & id.ToString & " to " & value.ToString)
-
+        TL.LogMessage("SetSwitchValue", "Not Implemented")
+        Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
     End Sub
 
 #End Region
@@ -515,7 +487,7 @@ Public Class Switch
         Validate(message, id)
         Dim ns As Integer = (((MaxSwitchValue(id) - MinSwitchValue(id)) / SwitchStep(id)) + 1)
         If (expectBoolean And ns <> 2) Or (Not expectBoolean And ns <= 2) Then
-            TL.LogMessage(message, String.Format("Switch {0} has the wriong number of states", id, ns))
+            TL.LogMessage(message, String.Format("Switch {0} has the wrong number of states", id, ns))
             Throw New MethodNotImplementedException(String.Format("{0}({1})", message, id))
         End If
     End Sub
@@ -528,7 +500,7 @@ Public Class Switch
     ''' <param name="id">The id.</param>
     ''' <param name="value">The value.</param>
     Private Sub Validate(message As String, id As Short, value As Double)
-        Validate(message, id, True)
+        Validate(message, id, False)
         Dim min = MinSwitchValue(id)
         Dim max = MaxSwitchValue(id)
         If (value < min Or value > max) Then
