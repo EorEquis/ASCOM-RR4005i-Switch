@@ -88,7 +88,7 @@ Partial Class SetupDialogForm
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 12)
+        Me.Label1.Location = New System.Drawing.Point(12, 22)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(114, 13)
         Me.Label1.TabIndex = 1
@@ -147,7 +147,7 @@ Partial Class SetupDialogForm
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(18, 50)
+        Me.Label3.Location = New System.Drawing.Point(12, 50)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(83, 13)
         Me.Label3.TabIndex = 62
@@ -261,11 +261,11 @@ Partial Class SetupDialogForm
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(242, 12)
+        Me.Label5.Location = New System.Drawing.Point(365, 81)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(43, 13)
+        Me.Label5.Size = New System.Drawing.Size(37, 13)
         Me.Label5.TabIndex = 74
-        Me.Label5.Text = "v0.2.51"
+        Me.Label5.Text = "v0.3.0"
         '
         'SetupDialogForm
         '

@@ -313,7 +313,7 @@ Public Class Switch
     ''' <returns>The name of the switch</returns>
     Public Function GetSwitchName(id As Short) As String Implements ISwitchV2.GetSwitchName
         Validate("GetSwitchName", id)
-        TL.LogMessage("GetSwitchName", PortNames(id))
+        TL.LogMessage("GetSwitchName", String.Format("Switch id {0} : {1}", id, PortNames(id)))
         Return PortNames(id)
     End Function
 
@@ -336,9 +336,9 @@ Public Class Switch
     ''' <exception cref="MethodNotImplementedException">If the method is not implemented</exception>
     ''' <exception cref="InvalidValueException">If id is outside the range 0 to MaxSwitch - 1</exception>
     Public Function GetSwitchDescription(id As Short) As String Implements ISwitchV2.GetSwitchDescription
-        ' Just return the switch name for now : TODO - Implement longer desc?
+        ' Just returns the switch name
         Validate("GetSwitchDescription", id)
-        TL.LogMessage("GetSwitchDescription", PortNames(id))
+        TL.LogMessage("GetSwitchDescription", String.Format("Switch id {0} : {1}", id, PortNames(id)))
         Return PortNames(id)
     End Function
 
@@ -355,7 +355,7 @@ Public Class Switch
     Public Function CanWrite(id As Short) As Boolean Implements ISwitchV2.CanWrite
         ' Always return true.  All ports on the rigrunner can be turned on or off
         Validate("CanWrite", id)
-        TL.LogMessage("CanWrite", "Default true")
+        TL.LogMessage("CanWrite", String.Format("Switch id {0} : True", id))
         Return True
     End Function
 
@@ -370,10 +370,9 @@ Public Class Switch
         Validate("GetSwitch", id, True)
 
         Dim xmld As New XmlDocument, result As Boolean
-
         xmld.LoadXml(CommandString("http://" & RRIP(id \ 5) & "/status.xml"))
         result = convertInt(CInt(xmld.SelectSingleNode("/rr4005i/RAILENA" & (id Mod 5).ToString).InnerText))
-        TL.LogMessage("GetSwitch", "id " & id.ToString & " : " & result.ToString)
+        TL.LogMessage("GetSwitch", String.Format("Switch id {0} : {1}", id, result.ToString))
         Return result
     End Function
 
@@ -387,7 +386,7 @@ Public Class Switch
     Sub SetSwitch(id As Short, state As Boolean) Implements ISwitchV2.SetSwitch
         Validate("SetSwitch", id, True)
         CommandBlind("http://" & RRIP(id \ 5) & "/index.htm?RAILENA" & (id Mod 5).ToString & "=" & convertBool(state))
-        TL.LogMessage("SetSwitch", "Set switch " & id.ToString & " to " & state.ToString)
+        TL.LogMessage("SetSwitch", String.Format("Switch id {0} : {1}", id, state.ToString))
     End Sub
 #End Region
 
@@ -400,7 +399,7 @@ Public Class Switch
     ''' <returns></returns>
     Function MaxSwitchValue(id As Short) As Double Implements ISwitchV2.MaxSwitchValue
         Validate("MaxSwitchValue", id)
-        TL.LogMessage("MaxSwitchValue", "1.0")
+        TL.LogMessage("MaxSwitchValue", String.Format("Switch id {0} : 1.0", id))
         Return 1.0  ' All RR4005i switches are boolean
     End Function
 
@@ -412,7 +411,7 @@ Public Class Switch
     ''' <returns></returns>
     Function MinSwitchValue(id As Short) As Double Implements ISwitchV2.MinSwitchValue
         Validate("MinSwitchValue", id)
-        TL.LogMessage("MinSwitchValue", "0.0")
+        TL.LogMessage("MinSwitchValue", String.Format("Switch id {0} : 0.0", id))
         Return 0.0  ' All RR4005i switches are boolean
     End Function
 
@@ -437,13 +436,16 @@ Public Class Switch
     ''' <param name="id"></param>
     ''' <returns></returns>
     Function GetSwitchValue(id As Short) As Double Implements ISwitchV2.GetSwitchValue
-        TL.LogMessage("GetSwitchValue", "id " & id.ToString)
+        Dim retVal As Double
         Validate("GetSwitchValue", id)
         If GetSwitch(id) Then
-            Return 1.0
+            retVal = 1.0
         Else
-            Return 0.0
+            retVal = 0.0
         End If
+        TL.LogMessage("GetSwitchValue", String.Format("Switch id {0} : {1}", id, retVal))
+        Return retVal
+
     End Function
 
     ''' <summary>
@@ -455,19 +457,21 @@ Public Class Switch
     ''' <param name="id"></param>
     ''' <param name="value"></param>
     Sub SetSwitchValue(id As Short, value As Double) Implements ISwitchV2.SetSwitchValue
+        Dim setVal As Boolean
         Validate("SetSwitchValue", id)
         If value < MinSwitchValue(id) Or value > MaxSwitchValue(id) Then
             Throw New InvalidValueException("", value.ToString(), String.Format("{0} to {1}", MinSwitchValue(id), MaxSwitchValue(id)))
-            TL.LogMessage("SetSwitchValue", "I failed to set switch " & id.ToString & " to value " & value.ToString)
+            TL.LogMessage("SetSwitchValue", String.Format("InvalidValueException Switch id {0} : value {1}", id, value))
         End If
 
         If value < 0.5 Then
-            TL.LogMessage("SetSwitchValue", "I attempted to set switch " & id.ToString & " to value (False) " & value.ToString)
-            SetSwitch(id, False)
+            setVal = False
         Else
-            TL.LogMessage("SetSwitchValue", "I attempted to set switch " & id.ToString & " to value (True) " & value.ToString)
-            SetSwitch(id, True)
+            setVal = True
         End If
+        TL.LogMessage("SetSwitchValue", String.Format("Switch id {0} : value {1}, set {2}", id, value, setVal.ToString))
+        SetSwitch(id, setVal)
+
     End Sub
 
 #End Region
@@ -483,6 +487,7 @@ Public Class Switch
     ''' <param name="id">The id.</param>
     Private Sub Validate(message As String, id As Short)
         If (id < 0 Or id >= numSwitches) Then
+            TL.LogMessage(message, String.Format("Switch {0} does not exist", id))
             Throw New ASCOM.InvalidValueException(message, id.ToString(), String.Format("0 to {0}", numSwitches - 1))
         End If
     End Sub
