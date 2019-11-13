@@ -437,9 +437,13 @@ Public Class Switch
     ''' <param name="id"></param>
     ''' <returns></returns>
     Function GetSwitchValue(id As Short) As Double Implements ISwitchV2.GetSwitchValue
-        Validate("GetSwitchValue", id, False)
-        TL.LogMessage("GetSwitchValue", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("GetSwitchValue")
+        TL.LogMessage("GetSwitchValue", "id " & id.ToString)
+        Validate("GetSwitchValue", id)
+        If GetSwitch(id) Then
+            Return 1.0
+        Else
+            Return 0.0
+        End If
     End Function
 
     ''' <summary>
@@ -451,12 +455,19 @@ Public Class Switch
     ''' <param name="id"></param>
     ''' <param name="value"></param>
     Sub SetSwitchValue(id As Short, value As Double) Implements ISwitchV2.SetSwitchValue
-        Validate("SetSwitchValue", id, value)
+        Validate("SetSwitchValue", id)
         If value < MinSwitchValue(id) Or value > MaxSwitchValue(id) Then
             Throw New InvalidValueException("", value.ToString(), String.Format("{0} to {1}", MinSwitchValue(id), MaxSwitchValue(id)))
+            TL.LogMessage("SetSwitchValue", "I failed to set switch " & id.ToString & " to value " & value.ToString)
         End If
-        TL.LogMessage("SetSwitchValue", "Not Implemented")
-        Throw New ASCOM.MethodNotImplementedException("SetSwitchValue")
+
+        If value < 0.5 Then
+            TL.LogMessage("SetSwitchValue", "I attempted to set switch " & id.ToString & " to value (False) " & value.ToString)
+            SetSwitch(id, False)
+        Else
+            TL.LogMessage("SetSwitchValue", "I attempted to set switch " & id.ToString & " to value (True) " & value.ToString)
+            SetSwitch(id, True)
+        End If
     End Sub
 
 #End Region

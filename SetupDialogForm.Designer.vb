@@ -46,6 +46,7 @@ Partial Class SetupDialogForm
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -257,6 +258,15 @@ Partial Class SetupDialogForm
         Me.Label4.Text = "Trace On"
         Me.ToolTip1.SetToolTip(Me.Label4, "Enable ASCOM trace logging")
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(242, 12)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(43, 13)
+        Me.Label5.TabIndex = 74
+        Me.Label5.Text = "v0.2.51"
+        '
         'SetupDialogForm
         '
         Me.AcceptButton = Me.OK_Button
@@ -264,6 +274,7 @@ Partial Class SetupDialogForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
         Me.ClientSize = New System.Drawing.Size(423, 208)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.cbFetchNames)
@@ -319,5 +330,6 @@ Partial Class SetupDialogForm
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
+    Friend WithEvents Label5 As System.Windows.Forms.Label
 
 End Class
