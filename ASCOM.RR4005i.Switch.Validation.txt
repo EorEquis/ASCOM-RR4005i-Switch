@@ -1,4 +1,4 @@
-Conform Report Hash (V1): 5C7962DD9D06EA7866F96F41E37BA9B06512EC956C53BD83CABF97A13DACCAC77F1199141B769927E3CBC2DBB5A7A10F7F9623C508175582491884F0661EF27B
+Conform Report Hash (V1): 2F5DB4F409A1A4AE0D78B990A43D870B4419D7371318DD660DD11399457CEAA7808DCF7E178A3712F12B785C6962EB8474C2ADA776560B6A1818AA357D48537A
 
  
 ConformanceCheck ASCOM Device Conformance Checker Version 6.2.59.0, Build time: 1/9/2017 9:44:32 AM
@@ -13,226 +13,226 @@ Error number for "Value Not Set 1" is: 80040402
 Error number for "Value Not Set 2" is: 80040403
 Error messages will not be interpreted to infer state.
  
-19:00:38.818 Driver Access Checks              OK       
-19:00:39.473 AccessChecks                      OK       Successfully created driver using late binding
-19:00:40.132 AccessChecks                      OK       Successfully connected using late binding
-19:00:40.143 AccessChecks                      INFO     The driver is a .NET object
-19:00:40.150 AccessChecks                      INFO     The AssemblyQualifiedName is: ASCOM.RR4005i.Switch, RR4005i Switch, Version=0.3.0.0, Culture=neutral, Publ
-19:00:40.156 AccessChecks                      INFO     The driver implements interface: ASCOM.DeviceInterface.ISwitchV2
-19:00:40.816 AccessChecks                      INFO     Device does not expose interface ISwitch
-19:00:41.547 AccessChecks                      INFO     Device exposes interface ISwitchV2
-19:00:42.198 AccessChecks                      OK       Successfully created driver using driver access toolkit
-19:00:42.826 AccessChecks                      OK       Successfully connected using driver access toolkit
+12:30:11.972 Driver Access Checks              OK       
+12:30:12.628 AccessChecks                      OK       Successfully created driver using late binding
+12:30:13.287 AccessChecks                      OK       Successfully connected using late binding
+12:30:13.291 AccessChecks                      INFO     The driver is a .NET object
+12:30:13.295 AccessChecks                      INFO     The AssemblyQualifiedName is: ASCOM.RR4005i.Switch, RR4005i Switch, Version=0.3.1.0, Culture=neutral, Publ
+12:30:13.299 AccessChecks                      INFO     The driver implements interface: ASCOM.DeviceInterface.ISwitchV2
+12:30:13.943 AccessChecks                      INFO     Device does not expose interface ISwitch
+12:30:14.624 AccessChecks                      INFO     Device exposes interface ISwitchV2
+12:30:15.279 AccessChecks                      OK       Successfully created driver using driver access toolkit
+12:30:15.959 AccessChecks                      OK       Successfully connected using driver access toolkit
  
 Conform is using ASCOM.DriverAccess.Switch to get a Switch object
-19:00:42.914 ConformanceCheck                  OK       Driver instance created successfully
-19:00:43.625 ConformanceCheck                  OK       Connected OK
+12:30:16.014 ConformanceCheck                  OK       Driver instance created successfully
+12:30:16.722 ConformanceCheck                  OK       Connected OK
  
 Common Driver Methods 
-19:00:43.662 InterfaceVersion                  OK       2
-19:00:43.689 Connected                         OK       True
-19:00:43.720 Description                       OK       RR4005i Switch
-19:00:43.756 DriverInfo                        OK       ASCOM Switch Driver for West Mountain Radio's RIGRunner 4005i. Version: 0.3
-19:00:43.787 DriverVersion                     OK       0.3
-19:00:43.816 Name                              OK       ASCOM RIGRunner 4005i Switch Driver
-19:00:43.846 CommandString                     INFO     Conform cannot test the CommandString method
-19:00:43.851 CommandBlind                      INFO     Conform cannot test the CommandBlind method
-19:00:43.855 CommandBool                       INFO     Conform cannot test the CommandBool method
-19:00:43.860 Action                            INFO     Conform cannot test the Action method
-19:00:43.866 SupportedActions                  OK       Driver returned an empty action list
+12:30:16.763 InterfaceVersion                  OK       2
+12:30:16.791 Connected                         OK       True
+12:30:16.820 Description                       OK       RR4005i Switch
+12:30:16.849 DriverInfo                        OK       ASCOM Switch Driver for West Mountain Radio's RIGRunner 4005i. Version: 0.3
+12:30:16.877 DriverVersion                     OK       0.3
+12:30:16.906 Name                              OK       ASCOM RIGRunner 4005i Switch Driver
+12:30:16.935 CommandString                     INFO     Conform cannot test the CommandString method
+12:30:16.940 CommandBlind                      INFO     Conform cannot test the CommandBlind method
+12:30:16.944 CommandBool                       INFO     Conform cannot test the CommandBool method
+12:30:16.950 Action                            INFO     Conform cannot test the Action method
+12:30:16.957 SupportedActions                  OK       Driver returned an empty action list
  
 Properties 
-19:00:43.973 MaxSwitch                         OK       5
+12:30:17.064 MaxSwitch                         OK       5
  
 Methods 
-19:00:44.075 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: CanWrite
-19:00:44.082 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: CanWrite
-19:00:44.090 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: GetSwitch
-19:00:44.096 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: GetSwitch
-19:00:44.103 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: GetSwitchDescription
-19:00:44.110 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: GetSwitchDescription
-19:00:44.117 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: GetSwitchName
-19:00:44.123 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: GetSwitchName
-19:00:44.130 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: GetSwitchValue
-19:00:44.136 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: GetSwitchValue
-19:00:44.143 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: MaxSwitchValue
-19:00:44.151 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: MaxSwitchValue
-19:00:44.157 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: MinSwitchValue
-19:00:44.163 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: MinSwitchValue
-19:00:44.171 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: SetSwitch
-19:00:44.192 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: SetSwitch
-19:00:44.198 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: SetSwitchValue
-19:00:44.204 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: SetSwitchValue
-19:00:44.212 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: SwitchStep
-19:00:44.219 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: SwitchStep
-19:00:46.577 GetSwitchName                     OK       Found switch 0
-19:00:46.583 GetSwitchName                     OK         Name: Roof
-19:00:46.589 GetSwitchDescription              OK         Description: Roof
-19:00:46.596 MinSwitchValue                    OK         Minimum: 0
-19:00:46.602 MaxSwitchValue                    OK         Maximum: 1
-19:00:46.609 SwitchStep                        OK         Step size: 1
-19:00:46.617 SwitchStep                        OK         Step size is greater than zero
-19:00:46.625 SwitchStep                        OK         Step size is less than the range of possible values
-19:00:46.632 SwitchStep                        OK         The switch range is an integer multiple of the step size.
-19:00:46.639 CanWrite                          OK         CanWrite: True
-19:00:46.816 GetSwitch                         OK         False
-19:00:46.990 GetSwitchValue                    OK         0
-19:00:48.401 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
-19:00:48.563 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
-19:00:53.018 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
-19:00:53.180 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
-19:01:01.422 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
-19:01:01.581 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
-19:01:04.658 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
-19:01:09.048 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
-19:01:09.256 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
-19:01:12.330 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
-19:01:15.407 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
-19:01:16.854 SetSwitchValue Offset:   0%       OK         Set and read match: 0
-19:01:21.272 SetSwitchValue Offset:   0%       OK         Set and read match: 1
-19:01:24.369 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
-19:01:25.751 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
-19:01:28.870 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
-19:01:30.208 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
-19:01:33.328 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
-19:01:34.607 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
-19:01:38.414 SetSwitchValue                    OK         Switch has been reset to its original state
+12:30:17.161 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: CanWrite
+12:30:17.167 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: CanWrite
+12:30:17.174 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: GetSwitch
+12:30:17.180 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: GetSwitch
+12:30:17.188 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: GetSwitchDescription
+12:30:17.207 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: GetSwitchDescription
+12:30:17.214 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: GetSwitchName
+12:30:17.220 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: GetSwitchName
+12:30:17.227 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: GetSwitchValue
+12:30:17.232 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: GetSwitchValue
+12:30:17.239 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: MaxSwitchValue
+12:30:17.245 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: MaxSwitchValue
+12:30:17.253 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: MinSwitchValue
+12:30:17.259 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: MinSwitchValue
+12:30:17.267 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: SetSwitch
+12:30:17.280 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: SetSwitch
+12:30:17.287 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: SetSwitchValue
+12:30:17.293 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: SetSwitchValue
+12:30:17.301 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID below 0 was used in method: SwitchStep
+12:30:17.309 SwitchNumber                      OK       Switch device threw an InvalidOperationException when a switch ID above MaxSwitch was used in method: SwitchStep
+12:30:19.702 GetSwitchName                     OK       Found switch 0
+12:30:19.710 GetSwitchName                     OK         Name: Roof
+12:30:19.717 GetSwitchDescription              OK         Description: Roof
+12:30:19.725 MinSwitchValue                    OK         Minimum: 0
+12:30:19.731 MaxSwitchValue                    OK         Maximum: 1
+12:30:19.738 SwitchStep                        OK         Step size: 1
+12:30:19.745 SwitchStep                        OK         Step size is greater than zero
+12:30:19.751 SwitchStep                        OK         Step size is less than the range of possible values
+12:30:19.760 SwitchStep                        OK         The switch range is an integer multiple of the step size.
+12:30:19.769 CanWrite                          OK         CanWrite: True
+12:30:19.935 GetSwitch                         OK         True
+12:30:20.137 GetSwitchValue                    OK         1
+12:30:21.566 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
+12:30:21.773 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
+12:30:26.163 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
+12:30:26.328 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
+12:30:34.554 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
+12:30:34.711 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
+12:30:37.789 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
+12:30:42.140 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
+12:30:42.326 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
+12:30:45.401 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
+12:30:48.477 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
+12:30:49.842 SetSwitchValue Offset:   0%       OK         Set and read match: 0
+12:30:54.273 SetSwitchValue Offset:   0%       OK         Set and read match: 1
+12:30:57.368 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
+12:30:58.727 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
+12:31:01.846 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
+12:31:03.166 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
+12:31:06.286 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
+12:31:07.640 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
+12:31:11.341 SetSwitchValue                    OK         Switch has been reset to its original state
  
-19:01:41.521 GetSwitchName                     OK       Found switch 1
-19:01:41.529 GetSwitchName                     OK         Name: Pier
-19:01:41.537 GetSwitchDescription              OK         Description: Pier
-19:01:41.546 MinSwitchValue                    OK         Minimum: 0
-19:01:41.556 MaxSwitchValue                    OK         Maximum: 1
-19:01:41.565 SwitchStep                        OK         Step size: 1
-19:01:41.580 SwitchStep                        OK         Step size is greater than zero
-19:01:41.588 SwitchStep                        OK         Step size is less than the range of possible values
-19:01:41.597 SwitchStep                        OK         The switch range is an integer multiple of the step size.
-19:01:41.605 CanWrite                          OK         CanWrite: True
-19:01:41.766 GetSwitch                         OK         False
-19:01:41.961 GetSwitchValue                    OK         0
-19:01:43.337 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
-19:01:43.497 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
-19:01:47.890 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
-19:01:48.049 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
-19:01:56.250 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
-19:01:56.457 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
-19:01:59.538 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
-19:02:03.970 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
-19:02:04.134 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
-19:02:07.211 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
-19:02:10.285 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
-19:02:11.679 SetSwitchValue Offset:   0%       OK         Set and read match: 0
-19:02:16.071 SetSwitchValue Offset:   0%       OK         Set and read match: 1
-19:02:19.168 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
-19:02:20.517 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
-19:02:23.634 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
-19:02:24.928 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
-19:02:28.048 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
-19:02:29.294 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
-19:02:33.139 SetSwitchValue                    OK         Switch has been reset to its original state
+12:31:14.448 GetSwitchName                     OK       Found switch 1
+12:31:14.454 GetSwitchName                     OK         Name: Pier
+12:31:14.463 GetSwitchDescription              OK         Description: Pier
+12:31:14.470 MinSwitchValue                    OK         Minimum: 0
+12:31:14.478 MaxSwitchValue                    OK         Maximum: 1
+12:31:14.487 SwitchStep                        OK         Step size: 1
+12:31:14.499 SwitchStep                        OK         Step size is greater than zero
+12:31:14.508 SwitchStep                        OK         Step size is less than the range of possible values
+12:31:14.515 SwitchStep                        OK         The switch range is an integer multiple of the step size.
+12:31:14.522 CanWrite                          OK         CanWrite: True
+12:31:14.727 GetSwitch                         OK         True
+12:31:14.891 GetSwitchValue                    OK         1
+12:31:16.276 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
+12:31:16.439 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
+12:31:20.811 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
+12:31:20.991 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
+12:31:29.194 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
+12:31:29.377 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
+12:31:32.451 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
+12:31:36.807 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
+12:31:37.008 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
+12:31:40.082 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
+12:31:43.156 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
+12:31:44.545 SetSwitchValue Offset:   0%       OK         Set and read match: 0
+12:31:48.948 SetSwitchValue Offset:   0%       OK         Set and read match: 1
+12:31:52.044 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
+12:31:53.420 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
+12:31:56.537 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
+12:31:57.826 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
+12:32:00.944 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
+12:32:02.224 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
+12:32:05.940 SetSwitchValue                    OK         Switch has been reset to its original state
  
-19:02:36.203 GetSwitchName                     OK       Found switch 2
-19:02:36.210 GetSwitchName                     OK         Name: ObsCommand
-19:02:36.220 GetSwitchDescription              OK         Description: ObsCommand
-19:02:36.228 MinSwitchValue                    OK         Minimum: 0
-19:02:36.235 MaxSwitchValue                    OK         Maximum: 1
-19:02:36.242 SwitchStep                        OK         Step size: 1
-19:02:36.249 SwitchStep                        OK         Step size is greater than zero
-19:02:36.257 SwitchStep                        OK         Step size is less than the range of possible values
-19:02:36.263 SwitchStep                        OK         The switch range is an integer multiple of the step size.
-19:02:36.270 CanWrite                          OK         CanWrite: True
-19:02:36.414 GetSwitch                         OK         False
-19:02:36.612 GetSwitchValue                    OK         0
-19:02:38.000 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
-19:02:38.158 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
-19:02:42.549 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
-19:02:42.694 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
-19:02:51.003 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
-19:02:51.161 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
-19:02:54.239 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
-19:02:58.591 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
-19:02:58.758 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
-19:03:01.836 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
-19:03:04.913 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
-19:03:06.318 SetSwitchValue Offset:   0%       OK         Set and read match: 0
-19:03:10.799 SetSwitchValue Offset:   0%       OK         Set and read match: 1
-19:03:13.897 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
-19:03:15.268 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
-19:03:18.388 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
-19:03:19.682 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
-19:03:22.803 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
-19:03:24.100 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
-19:03:27.901 SetSwitchValue                    OK         Switch has been reset to its original state
+12:32:09.046 GetSwitchName                     OK       Found switch 2
+12:32:09.053 GetSwitchName                     OK         Name: ObsCommand
+12:32:09.059 GetSwitchDescription              OK         Description: ObsCommand
+12:32:09.066 MinSwitchValue                    OK         Minimum: 0
+12:32:09.073 MaxSwitchValue                    OK         Maximum: 1
+12:32:09.079 SwitchStep                        OK         Step size: 1
+12:32:09.086 SwitchStep                        OK         Step size is greater than zero
+12:32:09.091 SwitchStep                        OK         Step size is less than the range of possible values
+12:32:09.098 SwitchStep                        OK         The switch range is an integer multiple of the step size.
+12:32:09.111 CanWrite                          OK         CanWrite: True
+12:32:09.274 GetSwitch                         OK         False
+12:32:09.483 GetSwitchValue                    OK         0
+12:32:10.846 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
+12:32:11.005 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
+12:32:15.438 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
+12:32:15.593 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
+12:32:23.812 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
+12:32:23.974 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
+12:32:27.044 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
+12:32:31.393 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
+12:32:31.554 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
+12:32:34.626 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
+12:32:37.700 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
+12:32:39.168 SetSwitchValue Offset:   0%       OK         Set and read match: 0
+12:32:43.609 SetSwitchValue Offset:   0%       OK         Set and read match: 1
+12:32:46.672 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
+12:32:48.034 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
+12:32:51.150 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
+12:32:52.429 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
+12:32:55.548 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
+12:32:56.865 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
+12:33:00.664 SetSwitchValue                    OK         Switch has been reset to its original state
  
-19:03:31.009 GetSwitchName                     OK       Found switch 3
-19:03:31.019 GetSwitchName                     OK         Name: ObsCam
-19:03:31.028 GetSwitchDescription              OK         Description: ObsCam
-19:03:31.037 MinSwitchValue                    OK         Minimum: 0
-19:03:31.044 MaxSwitchValue                    OK         Maximum: 1
-19:03:31.051 SwitchStep                        OK         Step size: 1
-19:03:31.058 SwitchStep                        OK         Step size is greater than zero
-19:03:31.065 SwitchStep                        OK         Step size is less than the range of possible values
-19:03:31.077 SwitchStep                        OK         The switch range is an integer multiple of the step size.
-19:03:31.084 CanWrite                          OK         CanWrite: True
-19:03:31.237 GetSwitch                         OK         False
-19:03:31.426 GetSwitchValue                    OK         0
-19:03:32.827 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
-19:03:33.018 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
-19:03:37.397 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
-19:03:37.556 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
-19:03:45.805 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
-19:03:46.017 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
-19:03:49.093 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
-19:03:53.480 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
-19:03:53.639 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
-19:03:56.715 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
-19:03:59.791 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
-19:04:01.222 SetSwitchValue Offset:   0%       OK         Set and read match: 0
-19:04:05.661 SetSwitchValue Offset:   0%       OK         Set and read match: 1
-19:04:08.759 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
-19:04:10.179 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
-19:04:13.307 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
-19:04:14.643 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
-19:04:17.728 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
-19:04:19.052 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
-19:04:22.887 SetSwitchValue                    OK         Switch has been reset to its original state
+12:33:03.726 GetSwitchName                     OK       Found switch 3
+12:33:03.733 GetSwitchName                     OK         Name: ObsCam
+12:33:03.745 GetSwitchDescription              OK         Description: ObsCam
+12:33:03.752 MinSwitchValue                    OK         Minimum: 0
+12:33:03.759 MaxSwitchValue                    OK         Maximum: 1
+12:33:03.768 SwitchStep                        OK         Step size: 1
+12:33:03.778 SwitchStep                        OK         Step size is greater than zero
+12:33:03.785 SwitchStep                        OK         Step size is less than the range of possible values
+12:33:03.791 SwitchStep                        OK         The switch range is an integer multiple of the step size.
+12:33:03.797 CanWrite                          OK         CanWrite: True
+12:33:04.006 GetSwitch                         OK         True
+12:33:04.206 GetSwitchValue                    OK         1
+12:33:05.602 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
+12:33:05.763 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
+12:33:10.170 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
+12:33:10.378 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
+12:33:18.645 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
+12:33:18.805 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
+12:33:21.880 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
+12:33:26.300 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
+12:33:26.456 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
+12:33:29.493 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
+12:33:32.567 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
+12:33:33.966 SetSwitchValue Offset:   0%       OK         Set and read match: 0
+12:33:38.387 SetSwitchValue Offset:   0%       OK         Set and read match: 1
+12:33:41.483 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
+12:33:42.950 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
+12:33:46.070 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
+12:33:47.376 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
+12:33:50.497 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
+12:33:51.811 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
+12:33:55.531 SetSwitchValue                    OK         Switch has been reset to its original state
  
-19:04:25.994 GetSwitchName                     OK       Found switch 4
-19:04:26.001 GetSwitchName                     OK         Name: Router
-19:04:26.008 GetSwitchDescription              OK         Description: Router
-19:04:26.015 MinSwitchValue                    OK         Minimum: 0
-19:04:26.026 MaxSwitchValue                    OK         Maximum: 1
-19:04:26.033 SwitchStep                        OK         Step size: 1
-19:04:26.039 SwitchStep                        OK         Step size is greater than zero
-19:04:26.045 SwitchStep                        OK         Step size is less than the range of possible values
-19:04:26.052 SwitchStep                        OK         The switch range is an integer multiple of the step size.
-19:04:26.059 CanWrite                          OK         CanWrite: True
-19:04:26.258 GetSwitch                         OK         False
-19:04:26.426 GetSwitchValue                    OK         0
-19:04:27.744 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
-19:04:27.922 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
-19:04:32.291 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
-19:04:32.475 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
-19:04:40.676 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
-19:04:40.874 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
-19:04:43.950 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
-19:04:48.314 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
-19:04:48.515 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
-19:04:51.587 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
-19:04:54.661 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
-19:04:56.106 SetSwitchValue Offset:   0%       OK         Set and read match: 0
-19:05:00.489 SetSwitchValue Offset:   0%       OK         Set and read match: 1
-19:05:03.584 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
-19:05:04.999 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
-19:05:08.116 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
-19:05:09.402 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
-19:05:12.520 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
-19:05:13.755 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
-19:05:17.565 SetSwitchValue                    OK         Switch has been reset to its original state
+12:33:58.614 GetSwitchName                     OK       Found switch 4
+12:33:58.620 GetSwitchName                     OK         Name: Router
+12:33:58.627 GetSwitchDescription              OK         Description: Router
+12:33:58.633 MinSwitchValue                    OK         Minimum: 0
+12:33:58.640 MaxSwitchValue                    OK         Maximum: 1
+12:33:58.651 SwitchStep                        OK         Step size: 1
+12:33:58.657 SwitchStep                        OK         Step size is greater than zero
+12:33:58.664 SwitchStep                        OK         Step size is less than the range of possible values
+12:33:58.670 SwitchStep                        OK         The switch range is an integer multiple of the step size.
+12:33:58.681 CanWrite                          OK         CanWrite: True
+12:33:58.881 GetSwitch                         OK         True
+12:33:59.062 GetSwitchValue                    OK         1
+12:34:00.443 SetSwitch                         OK         GetSwitch returned False after SetSwitch(False)
+12:34:00.644 SetSwitch                         OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitch(False)
+12:34:05.002 SetSwitch                         OK         GetSwitch read True after SetSwitch(True)
+12:34:05.165 SetSwitch                         OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitch(True)
+12:34:13.402 SetSwitchValue                    OK         GetSwitch returned False after SetSwitchValue(MINIMUM_VALUE)
+12:34:13.603 SetSwitchValue                    OK         GetSwitchValue returned MINIMUM_VALUE after SetSwitchValue(MINIMUM_VALUE)
+12:34:16.678 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value below SwitchMinimum was set: -1
+12:34:21.125 SetSwitchValue                    OK         GetSwitch returned True after SetSwitchValue(MAXIMUM_VALUE)
+12:34:21.285 SetSwitchValue                    OK         GetSwitchValue returned MAXIMUM_VALUE after SetSwitchValue(MAXIMUM_VALUE)
+12:34:24.358 SetSwitchValue                    OK         Switch threw an InvalidOperationException when a value above SwitchMaximum was set: 2
+12:34:27.433 SetSwitchValue                    INFO       Testing with steps that are 0%offset from integer SwitchStep values
+12:34:28.860 SetSwitchValue Offset:   0%       OK         Set and read match: 0
+12:34:33.288 SetSwitchValue Offset:   0%       OK         Set and read match: 1
+12:34:36.387 SetSwitchValue                    INFO       Testing with steps that are 25%offset from integer SwitchStep values
+12:34:37.802 SetSwitchValue Offset:  25%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.25, Read: 0
+12:34:40.918 SetSwitchValue                    INFO       Testing with steps that are 50%offset from integer SwitchStep values
+12:34:42.199 SetSwitchValue Offset:  50%       INFO       Set/Read differ by 40-50% of SwitchStep. Set: 0.5, Read: 1
+12:34:45.317 SetSwitchValue                    INFO       Testing with steps that are 75%offset from integer SwitchStep values
+12:34:46.633 SetSwitchValue Offset:  75%       INFO       Set/Read differ by 20-30% of SwitchStep. Set: 0.75, Read: 1
+12:34:50.332 SetSwitchValue                    OK         Switch has been reset to its original state
  
  
 Conformance test complete 
  
 No errors, warnings or issues found: your driver passes ASCOM validation!! 
  
-Driver Hash Value: 1ED36E84983B2147974C0994348FC94C6BF000C9622919ADBDBB7B28B174E6ECB37492319AC0BA163880D8B5BC46121CF005C0D1065FCB4B84D52ACEEAE10C18
+Driver Hash Value: 9074E87AEB72EAC812EC2E21D1A036F81C95CB2003E3BAA4356E1959F836D2CA9984597C4B6D05A3892BE983232DA6589157BBB14DE21C15AA3C58B2B4E0EE0F

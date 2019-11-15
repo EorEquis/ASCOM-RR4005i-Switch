@@ -263,9 +263,9 @@ Partial Class SetupDialogForm
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(365, 81)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(37, 13)
+        Me.Label5.Size = New System.Drawing.Size(43, 13)
         Me.Label5.TabIndex = 74
-        Me.Label5.Text = "v0.3.0"
+        Me.Label5.Text = "v0.3.01"
         '
         'SetupDialogForm
         '
@@ -301,7 +301,7 @@ Partial Class SetupDialogForm
         Me.Name = "SetupDialogForm"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "RR4005i Switch Setup"
+        Me.Text = "RR4005i Switch Driver Setup"
         Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

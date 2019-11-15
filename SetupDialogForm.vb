@@ -2,22 +2,34 @@ Imports System.Windows.Forms
 Imports System.Runtime.InteropServices
 Imports ASCOM.Utilities
 Imports ASCOM.RR4005i
+Imports System.Net
 
 <ComVisible(False)> _
 Public Class SetupDialogForm
 
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click ' OK button event handler
         ' Persist new values of user settings to the ASCOM profile
-        Dim tb As TextBox
+        Dim tb As TextBox, ipstring As String, is_valid As Boolean = True
         Switch.traceState = chkTrace.Checked
         Switch.NumUnits = ddNumUnits.SelectedItem
         For i As Integer = 0 To Switch.NumUnits - 1
             tb = Me.Controls("txtIP" & i.ToString)
-            Switch.RRIP(i) = tb.Text
+            ipstring = tb.Text
+            Dim ip As IPAddress
+            If Not IPAddress.TryParse(ipstring, ip) Then
+                is_valid = False
+                Exit For
+            Else
+                Switch.RRIP(i) = tb.Text
+            End If
         Next
+        If is_valid Then
+            Me.DialogResult = System.Windows.Forms.DialogResult.OK
+            Me.Close()
+        Else
+            MsgBox("IP Address Invalid")
+        End If
 
-        Me.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.Close()
     End Sub
 
     Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click 'Cancel button event handler
